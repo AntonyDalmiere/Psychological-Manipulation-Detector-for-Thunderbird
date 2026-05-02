@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Keyword Banner for Thunderbird",
+  "version": "1.0.0",
+  "description": "Displays a warning banner in the message viewer when specific keywords are detected in emails.",
+  "author": "Antony Dalmiere",
+  
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "psychologicalmanipulationdetector@laas.fr",
+      "strict_min_version": "128.0"
+    }
+  },
+  
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  },
+  
+  "background": {
+    "scripts": ["background.js"],
+    "type": "module"
+  },
+  
+  "permissions": [
+    "messagesRead",
+    "tabs",
+    "scripting"
+  ]
+}

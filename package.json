@@ -1,0 +1,24 @@
+{
+  "name": "keyword-banner-thunderbird",
+  "version": "1.0.0",
+  "description": "Thunderbird extension that displays warning banners for trigger keywords",
+  "author": "Antony Dalmiere",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs && node ./node_modules/web-ext/bin/web-ext.js build -o --source-dir dist --artifacts-dir dist --filename keyword-banner-thunderbird.xpi",
+    "dev": "node build.mjs --watch",
+    "clean": "rm -rf dist/",
+    "check": "node ./node_modules/typescript/bin/tsc --noEmit"
+  },
+  "dependencies": {
+    "nlp-js-tools-french": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^120.0.0",
+    "@types/node": "^18.19.130",
+    "esbuild": "^0.21.0",
+    "typescript": "^5.0.0",
+    "web-ext": "^7.0.0"
+  }
+}
