@@ -15,31 +15,31 @@ import { TECHNIQUE_KEYWORDS } from './keyword.js';
 import NlpjsTFr from 'nlp-js-tools-french';
 
 /**
- * Lemmatize text by tokenizing and returning lemmatized forms of each token
- * @param text - The raw text to lemmatize
- * @returns Array of lemmatized tokens (lowercase)
+ * Stem text using the built-in French stemmer
+ * @param text - The raw text to stem
+ * @returns Array of stemmed tokens (lowercase)
  */
 function lemmatizeText(text: string): string[] {
   if (!text) return [];
   
   try {
-    // Create NLP instance with the text and get lemmatized results
+    // Create NLP instance with the text and get stemmed results
     const nlp = new NlpjsTFr(text);
-    const lemmatized = nlp.lemmatizer();
+    const stemmed = nlp.stemmer();
     
-    // Extract unique lemmas from the analysis result
-    // lemmatized is an array of {word, lemma, id} objects
+    // Extract unique stems from the analysis result
+    // stemmed is an array of {word, stem, id} objects
     const lemmaSet = new Set<string>();
-    for (const token of lemmatized) {
-      const lemma = (token as any).lemma || (token as any).word || '';
-      if (lemma.length > 0) {
-        lemmaSet.add(lemma.toLowerCase());
+    for (const token of stemmed) {
+      const stem = (token as any).stem || '';
+      if (stem.length > 0) {
+        lemmaSet.add(stem.toLowerCase());
       }
     }
     
     return Array.from(lemmaSet);
   } catch (error) {
-    console.warn('[LEMMATIZE] Error lemmatizing text:', error);
+    console.warn('[STEM] Error stemming text:', error);
     // Fallback to simple tokenization if lemmatizer fails
     return text
       .toLowerCase()
@@ -77,9 +77,9 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
     const fullText = `${subject}\n${bodyText}`;
     console.log('[SCAN] Scanning message:', message.id, 'with text:', fullText);
     
-    // Lemmatize the incoming text to get array of lemmatized tokens
+    // Stem the incoming text to get array of stemmed tokens
     const lemmatizedTokens = lemmatizeText(fullText);
-    console.log('[SCAN] Lemmatized text:', lemmatizedTokens);
+    console.log('[SCAN] Stemmed text:', lemmatizedTokens);
     const matchedTechniques: { name: string; keywords: string[] }[] = [];
 
     // For each technique, check if any of its keywords match lemmatized tokens
