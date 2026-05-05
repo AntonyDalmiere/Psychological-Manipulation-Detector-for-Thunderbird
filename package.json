@@ -1,12 +1,12 @@
 {
-  "name": "keyword-banner-thunderbird",
+  "name": "psychological-manipulation-detector",
   "version": "1.0.0",
-  "description": "Thunderbird extension that displays warning banners for trigger keywords",
+  "description": "Thunderbird extension that detects psychological manipulation techniques in emails",
   "author": "Antony Dalmiere",
-  "license": "MIT",
+  "license": "CC0-1.0",
   "private": true,
   "scripts": {
-    "build": "node build.mjs && node ./node_modules/web-ext/bin/web-ext.js build -o --source-dir dist --artifacts-dir dist --filename keyword-banner-thunderbird.xpi",
+    "build": "node build.mjs && node ./node_modules/web-ext/bin/web-ext.js build -o --source-dir dist --artifacts-dir dist --filename psychological-manipulation-detector.xpi",
     "dev": "node build.mjs --watch",
     "clean": "rm -rf dist/",
     "check": "node ./node_modules/typescript/bin/tsc --noEmit"
