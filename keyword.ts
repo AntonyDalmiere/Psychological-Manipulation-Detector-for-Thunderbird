@@ -2,7 +2,7 @@ import NlpjsTFr from 'nlp-js-tools-french';
 
 export interface TechniqueKeywords {
   name: string;
-  keywords: string[];
+  keywords: { original: string; stemmed: string }[];
 }
 
 /**
@@ -26,14 +26,14 @@ function stemKeyword(keyword: string): string {
 /**
  * Stem all keywords in an array at runtime
  */
-function stemKeywords(keywords: string[]): string[] {
-  return keywords.map(keyword => {
-    // Handle multi-word keywords (stem each word)
-    return keyword
+function stemKeywords(keywords: string[]): { original: string; stemmed: string }[] {
+  return keywords.map(keyword => ({
+    original: keyword,
+    stemmed: keyword
       .split(' ')
       .map(word => stemKeyword(word))
-      .join(' ');
-  });
+      .join(' ')
+  }));
 }
 
 export const TECHNIQUE_KEYWORDS: TechniqueKeywords[] = [

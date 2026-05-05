@@ -86,11 +86,10 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
     for (const technique of TECHNIQUE_KEYWORDS) {
       const matchedKeywords: string[] = [];
       
-      for (const keyword of technique.keywords) {
-        // Check if any lemmatized token matches the keyword (case-insensitive)
-        const keywordLower = keyword.toLowerCase();
-        if (lemmatizedTokens.includes(keywordLower)) {
-          matchedKeywords.push(keyword);
+      for (const keywordObj of technique.keywords) {
+        // Check if any lemmatized token matches the stemmed keyword (case-insensitive)
+        if (lemmatizedTokens.includes(keywordObj.stemmed.toLowerCase())) {
+          matchedKeywords.push(keywordObj.original);
         }
       }
       
