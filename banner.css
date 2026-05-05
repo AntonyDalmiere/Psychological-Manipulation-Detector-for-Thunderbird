@@ -9,10 +9,10 @@
 .chips-container {
   position: absolute;
   top: 8px;
-  left: 8px;
   right: 8px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 8px;
   z-index: 9999;
   pointer-events: none; /* Allow clicks to pass through empty space */
@@ -30,6 +30,7 @@
   font-weight: 500;
   line-height: 1.4;
   pointer-events: auto; /* Re-enable pointer events for chips */
+  opacity: 0.7;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
