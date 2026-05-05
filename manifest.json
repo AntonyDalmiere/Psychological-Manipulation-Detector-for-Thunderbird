@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Keyword Banner for Thunderbird",
+  "name": "Psychological manipulation detector",
   "version": "1.0.0",
-  "description": "Displays a warning banner in the message viewer when specific keywords are detected in emails.",
+  "description": "Shows psychological manipulation techniques when opening an email",
   "author": "Antony Dalmiere",
   
   "browser_specific_settings": {
