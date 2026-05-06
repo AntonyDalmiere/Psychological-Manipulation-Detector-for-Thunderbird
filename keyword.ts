@@ -38,23 +38,23 @@ function stemKeywords(keywords: string[]): { original: string; stemmed: string }
 
 export const TECHNIQUE_KEYWORDS: TechniqueKeywords[] = [
   {
-    name: "Autorité (Authority)",
+    name: "Autorité",
     keywords: stemKeywords(["capital", "confiance", "société", "client", "centre", "assistance", "garantir", "anonyme", "sg", "bnp paribas"])
   },
   {
-    name: "Peur (Fear)",
+    name: "Peur",
     keywords: stemKeywords(["supprimer", "expirer", "suspendre", "échouer", "danger", "menace", "perte"])
   },
   {
-    name: "Personnalisation (Personalization)",
+    name: "Personnalisation",
     keywords: stemKeywords(["colis", "adresse", "suivi", "expéditeur", "fedex", "gls"])
   },
   {
-    name: "Amorçage (Priming)",
+    name: "Amorçage",
     keywords: stemKeywords(["abonnement", "facturation", "cycle", "renouveler", "paiement", "prime"])
   },
   {
-    name: "Tentation (Temptation)",
+    name: "Tentation",
     keywords: stemKeywords(["femme", "sexy", "rencontre", "amour", "flirter", "chatte", "aventure"])
   }
 ];
