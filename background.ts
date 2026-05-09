@@ -138,7 +138,9 @@ async function registerContentScript() {
       runAt: 'document_start',
     }]);
   } catch (error) {
+    console.log(error);
   }
 }
 
 registerContentScript();
+console.log("Extension booted");
