@@ -42,6 +42,42 @@
   border: 1px solid #ff6b6b;
 }
 
+/* Category-specific chip colors */
+.technique-personnalisation {
+  background: #E6F1FB;
+  border: 1px solid #185FA5;
+  color: #0C447C;
+}
+
+.technique-tentation {
+  background: #D4537E;
+  border: 1px solid #993556;
+  color: #ffffff;
+}
+
+.technique-autorite {
+  background: #E24B4A;
+  border: 1px solid #A32D2D;
+  color: #ffffff;
+}
+
+.technique-peur {
+  background: #501313;
+  border: 1px solid #791F1F;
+  color: #F7C1C1;
+}
+
+.technique-amorcage {
+  background: #EF9F27;
+  border: 1px solid #BA7517;
+  color: #412402;
+}
+
+.technique-default {
+  background: linear-gradient(135deg, #7f8c8d 0%, #606060 100%);
+  border: 1px solid #95a5a6;
+}
+
 /* Chip Text */
 .chip-text {
   white-space: nowrap;
