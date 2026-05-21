@@ -3,7 +3,7 @@
   "name": "Psychological manipulation detector",
   "version": "1.0.0",
   "description": "Shows psychological manipulation techniques when opening an email",
-  "author": "Antony Dalmiere",
+  "author": "Antony Dalmiere & Simon Pouly",
   
   "browser_specific_settings": {
     "gecko": {
