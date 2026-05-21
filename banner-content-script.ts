@@ -10,6 +10,27 @@ let bannerElement: HTMLElement | null = null;
 let isBannerVisible: boolean = false;
 
 /**
+ * Map technique name to a CSS class for category-specific colors.
+ */
+function getTechniqueClass(name: string): string {
+  const normalized = name.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+  switch (normalized) {
+    case 'personnalisation':
+      return 'technique-personnalisation';
+    case 'tentation':
+      return 'technique-tentation';
+    case 'autorite':
+      return 'technique-autorite';
+    case 'peur':
+      return 'technique-peur';
+    case 'amorcage':
+      return 'technique-amorcage';
+    default:
+      return 'technique-default';
+  }
+}
+
+/**
  * Create the technique chips display
  */
 function createChips(techniques: { name: string; keywords: string[] }[], subject: string): HTMLElement {
