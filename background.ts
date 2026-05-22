@@ -105,7 +105,6 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
       await browser.tabs.sendMessage(tab.id!, {
         action: 'showBanner',
         techniques: matchedTechniques,
-        subject: subject
       });
     }
   } catch (error) {
