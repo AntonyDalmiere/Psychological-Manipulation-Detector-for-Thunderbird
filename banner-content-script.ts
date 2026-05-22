@@ -45,7 +45,7 @@ function createChips(techniques: { name: string; keywords: string[] }[], subject
   // Create a chip for each technique
   techniques.forEach((technique) => {
     const chip = document.createElement('div');
-    chip.className = 'technique-chip warning';
+    chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
     chip.title = `Matching keywords: ${technique.keywords.join(', ')}`;
     
     // Chip text (technique name)
