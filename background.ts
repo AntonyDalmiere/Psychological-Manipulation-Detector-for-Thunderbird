@@ -109,6 +109,7 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
       });
     }
   } catch (error) {
+    console.error('[CHECK] Error:', error);
   }
 }
 
@@ -142,8 +143,9 @@ async function registerContentScript() {
       js: ['banner-content-script.js'],
       runAt: 'document_end',
     }]);
+    console.log('[REGISTER] Content script registered');
   } catch (error) {
-    console.log(error);
+    console.error('[REGISTER] Failed to register content script:', error);
   }
 }
 
