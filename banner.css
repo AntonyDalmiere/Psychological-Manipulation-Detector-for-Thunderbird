@@ -7,7 +7,7 @@
 
 /* Chips Container - Floating Overlay */
 .chips-container {
-  position: fixed;
+  position: absolute;
   top: 8px;
   right: 8px;
   display: flex;
