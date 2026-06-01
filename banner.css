@@ -35,11 +35,41 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Warning Style Chip */
-.technique-chip.warning {
-  background: linear-gradient(135deg, #d70022 0%, #c4001e 100%);
+/* Category-specific chip colors */
+.technique-chip.technique-personnalisation {
+  background: #E6F1FB;
+  border: 1px solid #185FA5;
+  color: #0C447C;
+}
+
+.technique-chip.technique-tentation {
+  background: #D4537E;
+  border: 1px solid #993556;
   color: #ffffff;
-  border: 1px solid #ff6b6b;
+}
+
+.technique-chip.technique-autorite {
+  background: #E24B4A;
+  border: 1px solid #A32D2D;
+  color: #ffffff;
+}
+
+.technique-chip.technique-peur {
+  background: #501313;
+  border: 1px solid #791F1F;
+  color: #F7C1C1;
+}
+
+.technique-chip.technique-amorcage {
+  background: #EF9F27;
+  border: 1px solid #BA7517;
+  color: #412402;
+}
+
+.technique-chip.technique-default {
+  background: linear-gradient(135deg, #7f8c8d 0%, #606060 100%);
+  border: 1px solid #95a5a6;
+  color: #ffffff;
 }
 
 /* Chip Text */
