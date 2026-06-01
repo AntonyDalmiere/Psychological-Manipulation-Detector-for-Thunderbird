@@ -1,5 +1,5 @@
 # Psychological Manipulation Detector for Thunderbird
-
+ 
 A Thunderbird extension that detects psychological manipulation techniques in emails using NLP and keyword analysis.
 
 **Development Status:** In development at LAAS-CNRS  
