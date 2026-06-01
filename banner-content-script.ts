@@ -45,7 +45,7 @@ function createChips(techniques: { name: string; keywords: string[] }[], subject
   // Create a chip for each technique
   techniques.forEach((technique) => {
     const chip = document.createElement('div');
-    chip.className = 'technique-chip warning';
+    chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
     chip.title = `Matching keywords: ${technique.keywords.join(', ')}`;
     
     // Chip text (technique name)
@@ -90,50 +90,15 @@ function removeBanner() {
  * Show the banner at the top of the message viewer
  */
 function showBanner(techniques: { name: string; keywords: string[] }[], subject: string) {
-  // Wait for message content to load
-  setTimeout(() => {
-    // Try to find the message content container
-    let targetContainer = null;
-    
-    // Common selectors for Thunderbird message viewer
-    const selectors = [
-      '#message-content',
-      '.msgContent',
-      '[data-message-id]',
-      '.thread-pane-message-body',
-      'iframe[src*="message"]',
-      '#messageview'
-    ];
-    
-    for (const selector of selectors) {
-      targetContainer = document.querySelector(selector);
-      if (targetContainer) break;
-    }
-    
-    // If no specific container found, use document body
-    if (!targetContainer) {
-      targetContainer = document.body;
-    }
-    
-    // Create and inject chips
-    const chips = createChips(techniques, subject);
-    
-    // Insert at the top of the container (floating overlay)
-    if (targetContainer.firstChild) {
-      targetContainer.insertBefore(chips, targetContainer.firstChild);
-    } else {
-      targetContainer.appendChild(chips);
-    }
-    
-    isBannerVisible = true;
-  }, 100); // Small delay to ensure DOM is ready
+  const chips = createChips(techniques, subject);
+  document.body.appendChild(chips);
+  isBannerVisible = true;
 }
 
 /**
  * Listen for messages from background script
  */
 browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; subject: string }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
-  
   if (message.action === 'showBanner') {
     showBanner(message.techniques, message.subject);
   } else if (message.action === 'hideBanner') {
