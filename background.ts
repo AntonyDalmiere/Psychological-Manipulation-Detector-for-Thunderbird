@@ -138,7 +138,7 @@ async function registerContentScript() {
       id: 'keyword-banner-script',
       css: ['banner.css'],
       js: ['banner-content-script.js'],
-      runAt: 'document_start',
+      runAt: 'document_end',
     }]);
   } catch (error) {
     console.error('[REGISTER] Failed to register content script:', error);
