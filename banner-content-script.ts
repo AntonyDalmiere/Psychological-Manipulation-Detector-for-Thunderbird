@@ -80,7 +80,7 @@ function removeBanner() {
 /**
  * Show the banner at the top of the message viewer
  */
-function showBanner(techniques: { name: string; keywords: string[] }[], subject: string) {
+function showBanner(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>) {
   // Wait for message content to load
   setTimeout(() => {
     // Try to find the message content container
@@ -107,7 +107,8 @@ function showBanner(techniques: { name: string; keywords: string[] }[], subject:
     }
     
     // Create and inject chips
-    const chips = createChips(techniques, subject);
+    const score = calculateScore(techniques, totalKeywords, weights);
+    const chips = createChips(techniques, String(score));
     
     // Insert at the top of the container (floating overlay)
     if (targetContainer.firstChild) {
@@ -123,10 +124,10 @@ function showBanner(techniques: { name: string; keywords: string[] }[], subject:
 /**
  * Listen for messages from background script
  */
-browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; subject: string }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
-  
+browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number; weights: Record<string, number> }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
+
   if (message.action === 'showBanner') {
-    showBanner(message.techniques, message.subject);
+    showBanner(message.techniques, message.totalKeywords, message.weights);
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }
