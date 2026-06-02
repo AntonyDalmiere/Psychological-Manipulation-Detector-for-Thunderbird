@@ -25,6 +25,12 @@
   "permissions": [
     "messagesRead",
     "tabs",
-    "scripting"
-  ]
+    "scripting",
+    "storage"
+  ],
+
+  "options_ui": {
+    "page": "onboarding.html",
+    "open_in_tab": true
+  }
 }

@@ -10,6 +10,7 @@ const config = {
   entry: {
     background: './background.ts',
     'banner-content-script': './banner-content-script.ts',
+    onboarding: './onboarding.ts',
   },
   output: {
     path: join(__dirname, 'dist'),
@@ -48,6 +49,7 @@ const config = {
       patterns: [
         { from: 'manifest.json', to: 'manifest.json' },
         { from: 'banner.css', to: 'banner.css' },
+        { from: 'onboarding.html', to: 'onboarding.html' },
         { from: 'icons', to: 'icons' },
       ],
     }),
