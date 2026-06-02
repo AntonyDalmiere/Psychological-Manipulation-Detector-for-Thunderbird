@@ -9,6 +9,11 @@
 let bannerElement: HTMLElement | null = null;
 let isBannerVisible: boolean = false;
 
+const TECHNIQUE_NAME_MAP: Record<string, string> = {
+  'Autorité': 'autorite', 'Peur': 'peur', 'Personnalisation': 'personnalisation',
+  'Amorçage': 'amorcage', 'Tentation': 'tentation',
+};
+
 /**
  * Create the technique chips display
  */
