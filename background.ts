@@ -141,6 +141,9 @@ browser.runtime.onInstalled.addListener(async (details) => {
 // This must be done at the top level, and we catch errors for re-registration
 async function registerContentScript() {
   try {
+    await (browser as any).scripting.messageDisplay.unregisterScripts({ ids: ['keyword-banner-script'] });
+  } catch (_) {}
+  try {
     await (browser as any).scripting.messageDisplay.registerScripts([{
       id: 'keyword-banner-script',
       css: ['banner.css'],
