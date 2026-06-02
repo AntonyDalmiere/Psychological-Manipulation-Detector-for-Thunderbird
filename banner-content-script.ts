@@ -31,14 +31,16 @@ function calculateScore(techniques: { name: string; keywords: string[] }[], tota
 /**
  * Create the technique chips display
  */
-function createChips(techniques: { name: string; keywords: string[] }[], subject: string): HTMLElement {
-  // Remove existing banner if present
+function createChips(techniques: { name: string; keywords: string[] }[], score: number): HTMLElement {
   removeBanner();
-  
-  // Create chips container (floating overlay)
   const chipsContainer = document.createElement('div');
   chipsContainer.id = 'keyword-chips-container';
   chipsContainer.className = 'chips-container';
+  const danger = getDangerLabel(score);
+  const badge = document.createElement('div');
+  badge.className = `score-badge ${danger.toLowerCase()}`;
+  badge.textContent = `${danger} — ${score}%`;
+  chipsContainer.appendChild(badge);
   
   // Create a chip for each technique
   techniques.forEach((technique) => {
@@ -115,7 +117,7 @@ function showBanner(techniques: { name: string; keywords: string[] }[], totalKey
     
     // Create and inject chips
     const score = calculateScore(techniques, totalKeywords, weights);
-    const chips = createChips(techniques, String(score));
+    const chips = createChips(techniques, score);
     
     // Insert at the top of the container (floating overlay)
     if (targetContainer.firstChild) {
