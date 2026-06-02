@@ -102,10 +102,14 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
     }
 
     if (matchedTechniques.length > 0) {
+      const totalKeywords = TECHNIQUE_KEYWORDS.reduce((sum, t) => sum + t.keywords.length, 0);
+      const stored = await browser.storage.local.get('techniqueWeights');
+      const weights = (stored as any).techniqueWeights || {};
       await browser.tabs.sendMessage(tab.id!, {
         action: 'showBanner',
         techniques: matchedTechniques,
-        subject: subject
+        totalKeywords,
+        weights
       });
     }
   } catch (error) {
