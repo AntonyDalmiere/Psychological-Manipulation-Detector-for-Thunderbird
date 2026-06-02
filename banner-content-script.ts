@@ -14,6 +14,13 @@ const TECHNIQUE_NAME_MAP: Record<string, string> = {
   'Amorçage': 'amorcage', 'Tentation': 'tentation',
 };
 
+function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
+  const weighted = techniques.reduce((sum, t) => {
+    return sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1);
+  }, 0);
+  return Math.min(100, Math.round((weighted / totalKeywords) * 100));
+}
+
 /**
  * Create the technique chips display
  */
