@@ -5,6 +5,13 @@
  * Less obstructive than full banner while maintaining visibility
  */
 
+/* Safe Notification Toast */
+.safe-notification {
+  position: fixed; bottom: 16px; right: 16px; z-index: 9999;
+  background: #1b5e20; color: #fff;
+  padding: 8px 16px; border-radius: 8px; font-size: 13px;
+}
+
 /* Chips Container - Floating Overlay */
 .chips-container {
   position: absolute;
