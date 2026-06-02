@@ -14,6 +14,13 @@ const TECHNIQUE_NAME_MAP: Record<string, string> = {
   'Amorçage': 'amorcage', 'Tentation': 'tentation',
 };
 
+function getDangerLabel(score: number): string {
+  if (score >= 76) return 'Critique';
+  if (score >= 51) return 'Eleve';
+  if (score >= 21) return 'Modere';
+  return 'Faible';
+}
+
 function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
   const weighted = techniques.reduce((sum, t) => {
     return sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1);
