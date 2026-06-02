@@ -109,6 +109,8 @@ function showBanner(techniques: { name: string; keywords: string[] }[], subject:
 browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; subject: string }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
   if (message.action === 'showBanner') {
     showBanner(message.techniques, message.subject);
+  } else if (message.action === 'showSafe') {
+    showSafeNotification();
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }
