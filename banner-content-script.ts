@@ -84,6 +84,14 @@ function createChips(techniques: { name: string; keywords: string[] }[], totalKe
   return chipsContainer;
 }
 
+function showSafeNotification() {
+  const toast = document.createElement('div');
+  toast.className = 'safe-notification';
+  toast.textContent = '✓ Aucune manipulation détectée';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
 function removeBanner() {
   if (bannerElement && bannerElement.parentNode) {
     bannerElement.parentNode.removeChild(bannerElement);
@@ -101,6 +109,8 @@ function showBanner(techniques: { name: string; keywords: string[] }[], totalKey
 browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number; weights: Record<string, number> }, _sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
   if (message.action === 'showBanner') {
     showBanner(message.techniques, message.totalKeywords, message.weights);
+  } else if (message.action === 'showSafe') {
+    showSafeNotification();
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }

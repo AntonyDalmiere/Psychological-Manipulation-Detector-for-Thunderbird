@@ -112,6 +112,8 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
         totalKeywords,
         weights,
       });
+    } else {
+      await browser.tabs.sendMessage(tab.id!, { action: 'showSafe' });
     }
   } catch (error) {
   }
