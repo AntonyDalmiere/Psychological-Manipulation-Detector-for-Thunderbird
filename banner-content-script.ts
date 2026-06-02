@@ -145,6 +145,8 @@ browser.runtime.onMessage.addListener((message: { action: string; techniques: { 
 
   if (message.action === 'showBanner') {
     showBanner(message.techniques, message.totalKeywords, message.weights);
+  } else if (message.action === 'showSafe') {
+    showSafeNotification();
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }
