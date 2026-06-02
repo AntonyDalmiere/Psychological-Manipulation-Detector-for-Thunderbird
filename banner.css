@@ -18,6 +18,16 @@
   pointer-events: none; /* Allow clicks to pass through empty space */
 }
 
+/* Score Badge */
+.score-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  pointer-events: auto;
+}
+
 /* Individual Technique Chip */
 .technique-chip {
   display: inline-flex;
