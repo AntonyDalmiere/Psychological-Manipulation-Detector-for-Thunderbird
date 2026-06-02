@@ -21,6 +21,23 @@ function getTechniqueClass(name: string): string {
   }
 }
 
+const TECHNIQUE_NAME_MAP: Record<string, string> = {
+  'Autorité': 'autorite', 'Peur': 'peur', 'Personnalisation': 'personnalisation',
+  'Amorçage': 'amorcage', 'Tentation': 'tentation',
+};
+
+function calculateScore(
+  techniques: { name: string; keywords: string[] }[],
+  totalKeywords: number,
+  weights: Record<string, number>,
+): number {
+  const weighted = techniques.reduce((sum, t) => {
+    const key = TECHNIQUE_NAME_MAP[t.name] ?? t.name.toLowerCase();
+    return sum + t.keywords.length * (weights[key] ?? 1);
+  }, 0);
+  return Math.min(100, Math.round((weighted / totalKeywords) * 100));
+}
+
 function getDangerLabel(score: number): string {
   if (score >= 76) return 'critique';
   if (score >= 51) return 'eleve';
@@ -28,14 +45,13 @@ function getDangerLabel(score: number): string {
   return 'faible';
 }
 
-function createChips(techniques: { name: string; keywords: string[] }[], totalKeywords: number): HTMLElement {
+function createChips(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): HTMLElement {
   removeBanner();
   const chipsContainer = document.createElement('div');
   chipsContainer.id = 'keyword-chips-container';
   chipsContainer.className = 'chips-container';
 
-  const matchedCount = techniques.reduce((sum, t) => sum + t.keywords.length, 0);
-  const score = Math.min(100, Math.round((matchedCount / totalKeywords) * 100));
+  const score = calculateScore(techniques, totalKeywords, weights);
   const danger = getDangerLabel(score);
   const badge = document.createElement('div');
   badge.className = `score-badge ${danger}`;
@@ -76,15 +92,15 @@ function removeBanner() {
   }
 }
 
-function showBanner(techniques: { name: string; keywords: string[] }[], totalKeywords: number) {
-  const chips = createChips(techniques, totalKeywords);
+function showBanner(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>) {
+  const chips = createChips(techniques, totalKeywords, weights);
   document.body.appendChild(chips);
   isBannerVisible = true;
 }
 
-browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number }, _sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
+browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number; weights: Record<string, number> }, _sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
   if (message.action === 'showBanner') {
-    showBanner(message.techniques, message.totalKeywords);
+    showBanner(message.techniques, message.totalKeywords, message.weights);
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }
