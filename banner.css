@@ -28,6 +28,11 @@
   pointer-events: auto;
 }
 
+.score-badge.critique { background: #c0392b; }
+.score-badge.eleve    { background: #d35400; }
+.score-badge.modere   { background: #9a7700; }
+.score-badge.faible   { background: #1b5e20; }
+
 /* Individual Technique Chip */
 .technique-chip {
   display: inline-flex;
