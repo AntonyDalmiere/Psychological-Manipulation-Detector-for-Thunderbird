@@ -21,11 +21,26 @@ function getTechniqueClass(name: string): string {
   }
 }
 
-function createChips(techniques: { name: string; keywords: string[] }[]): HTMLElement {
+function getDangerLabel(score: number): string {
+  if (score >= 76) return 'critique';
+  if (score >= 51) return 'eleve';
+  if (score >= 21) return 'modere';
+  return 'faible';
+}
+
+function createChips(techniques: { name: string; keywords: string[] }[], totalKeywords: number): HTMLElement {
   removeBanner();
   const chipsContainer = document.createElement('div');
   chipsContainer.id = 'keyword-chips-container';
   chipsContainer.className = 'chips-container';
+
+  const matchedCount = techniques.reduce((sum, t) => sum + t.keywords.length, 0);
+  const score = Math.min(100, Math.round((matchedCount / totalKeywords) * 100));
+  const danger = getDangerLabel(score);
+  const badge = document.createElement('div');
+  badge.className = `score-badge ${danger}`;
+  badge.textContent = `${danger.charAt(0).toUpperCase() + danger.slice(1)} — ${score}%`;
+  chipsContainer.appendChild(badge);
 
   techniques.forEach((technique) => {
     const chip = document.createElement('div');
@@ -61,15 +76,15 @@ function removeBanner() {
   }
 }
 
-function showBanner(techniques: { name: string; keywords: string[] }[]) {
-  const chips = createChips(techniques);
+function showBanner(techniques: { name: string; keywords: string[] }[], totalKeywords: number) {
+  const chips = createChips(techniques, totalKeywords);
   document.body.appendChild(chips);
   isBannerVisible = true;
 }
 
-browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[] }, _sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
+browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number }, _sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
   if (message.action === 'showBanner') {
-    showBanner(message.techniques);
+    showBanner(message.techniques, message.totalKeywords);
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }

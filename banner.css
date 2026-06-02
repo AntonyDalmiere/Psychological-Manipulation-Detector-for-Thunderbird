@@ -35,6 +35,21 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* Risk severity badge */
+.score-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  pointer-events: auto;
+}
+
+.score-badge.critique { background: #c0392b; }
+.score-badge.eleve    { background: #d35400; }
+.score-badge.modere   { background: #9a7700; }
+.score-badge.faible   { background: #1b5e20; }
+
 /* Per-technique color coding */
 .technique-chip.technique-autorite {
   background: #E24B4A;
