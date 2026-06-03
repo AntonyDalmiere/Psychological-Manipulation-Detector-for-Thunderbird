@@ -131,14 +131,17 @@ async function handleMessagesDisplayed(tab: browser.tabs.Tab, messageList: { mes
 // This must be done at the top level, and we catch errors for re-registration
 async function registerContentScript() {
   try {
+    await (browser as any).scripting.messageDisplay.unregisterScripts({ ids: ['keyword-banner-script'] });
+  } catch (_) {}
+  try {
     await (browser as any).scripting.messageDisplay.registerScripts([{
       id: 'keyword-banner-script',
       css: ['banner.css'],
       js: ['banner-content-script.js'],
-      runAt: 'document_start',
+      runAt: 'document_end',
     }]);
   } catch (error) {
-    console.log(error);
+    console.error('[REGISTER] Failed to register content script:', error);
   }
 }
 
