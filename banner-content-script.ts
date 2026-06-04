@@ -48,7 +48,14 @@ function createChips(techniques: { name: string; keywords: string[] }[], totalKe
   const chipsContainer = document.createElement('div');
   chipsContainer.id = 'keyword-chips-container';
   chipsContainer.className = 'chips-container';
-  
+
+  const score = Math.min(100, Math.round((techniques.reduce((s, t) => s + t.keywords.length, 0) / totalKeywords) * 100));
+  const danger = getDangerLabel(score);
+  const badge = document.createElement('div');
+  badge.className = `score-badge ${danger}`;
+  badge.textContent = `${danger.charAt(0).toUpperCase() + danger.slice(1)} — ${score}%`;
+  chipsContainer.appendChild(badge);
+
   // Create a chip for each technique
   techniques.forEach((technique) => {
     const chip = document.createElement('div');
