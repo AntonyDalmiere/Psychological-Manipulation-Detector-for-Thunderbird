@@ -30,6 +30,13 @@ function getTechniqueClass(name: string): string {
   }
 }
 
+function getDangerLabel(score: number): string {
+  if (score >= 76) return 'critique';
+  if (score >= 51) return 'eleve';
+  if (score >= 21) return 'modere';
+  return 'faible';
+}
+
 /**
  * Create the technique chips display
  */
