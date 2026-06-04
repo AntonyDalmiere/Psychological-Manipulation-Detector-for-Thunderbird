@@ -40,7 +40,7 @@ function getDangerLabel(score: number): string {
 /**
  * Create the technique chips display
  */
-function createChips(techniques: { name: string; keywords: string[] }[], subject: string): HTMLElement {
+function createChips(techniques: { name: string; keywords: string[] }[], totalKeywords: number): HTMLElement {
   // Remove existing banner if present
   removeBanner();
   
@@ -96,8 +96,8 @@ function removeBanner() {
 /**
  * Show the banner at the top of the message viewer
  */
-function showBanner(techniques: { name: string; keywords: string[] }[], subject: string) {
-  const chips = createChips(techniques, subject);
+function showBanner(techniques: { name: string; keywords: string[] }[], totalKeywords: number) {
+  const chips = createChips(techniques, totalKeywords);
   document.body.appendChild(chips);
   isBannerVisible = true;
 }
@@ -105,9 +105,9 @@ function showBanner(techniques: { name: string; keywords: string[] }[], subject:
 /**
  * Listen for messages from background script
  */
-browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; subject: string }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
+browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
   if (message.action === 'showBanner') {
-    showBanner(message.techniques, message.subject);
+    showBanner(message.techniques, message.totalKeywords);
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }
