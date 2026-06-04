@@ -169,3 +169,10 @@
     box-shadow: 0 2px 8px rgba(230, 0, 37, 0.5);
   }
 }
+.score-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
