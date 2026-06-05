@@ -92,6 +92,14 @@ function createChips(techniques: { name: string; keywords: string[] }[], totalKe
 /**
  * Remove the banner from the DOM
  */
+function showSafeNotification() {
+  const div = document.createElement('div');
+  div.className = 'safe-notification';
+  div.textContent = '✓ Aucune manipulation détectée';
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 3000);
+}
+
 function removeBanner() {
   if (bannerElement && bannerElement.parentNode) {
     bannerElement.parentNode.removeChild(bannerElement);
@@ -115,6 +123,8 @@ function showBanner(techniques: { name: string; keywords: string[] }[], totalKey
 browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
   if (message.action === 'showBanner') {
     showBanner(message.techniques, message.totalKeywords);
+  } else if (message.action === 'showSafe') {
+    showSafeNotification();
   } else if (message.action === 'hideBanner') {
     removeBanner();
   }

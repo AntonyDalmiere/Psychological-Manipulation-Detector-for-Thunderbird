@@ -108,6 +108,8 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
         techniques: matchedTechniques,
         totalKeywords,
       });
+    } else {
+      await browser.tabs.sendMessage(tab.id!, { action: 'showSafe' });
     }
   } catch (error) {
   }
