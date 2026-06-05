@@ -1,0 +1,45 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Psychological-Manipulation-Detector-for-Thunderbird
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Antony
+    family-names: Dalmiere
+    affiliation: LAAS-CNRS
+    email: antony.dalmiere@laas.fr
+    orcid: 'https://orcid.org/0009-0009-0019-112X'
+  - given-names: Simon
+    family-names: Pouly
+    email: simon.pouly@laas.fr
+    affiliation: LAAS-CNRS
+  - given-names: Pascal
+    family-names: Marchand
+    affiliation: Université de Toulouse - LERASS
+    email: marchand.pascal@proton.me
+    orcid: 'https://orcid.org/0000-0002-4190-8213'
+  - given-names: Guillaume
+    family-names: Auriol
+    email: guillaume.auriol@laas.fr
+    affiliation: INSA Toulouse - LAAS-CNRS
+    orcid: 'https://orcid.org/0009-0001-2775-5345'
+  - given-names: Vincent
+    family-names: Nicomette
+    email: vincent.nicomette@laas.fr
+    affiliation: INSA Toulouse - LAAS-CNRS
+    orcid: 'https://orcid.org/0000-0001-9482-004X'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20545252
+repository-code: >-
+  https://github.com/AntonyDalmiere/Psychological-Manipulation-Detector-for-Thunderbird
+keywords:
+  - thunderbird
+  - phishing
+  - detection
+  - psychological
+license: MIT
