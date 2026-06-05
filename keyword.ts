@@ -39,22 +39,22 @@ function stemKeywords(keywords: string[]): { original: string; stemmed: string }
 export const TECHNIQUE_KEYWORDS: TechniqueKeywords[] = [
   {
     name: "Autorité",
-    keywords: stemKeywords(["capital", "confiance", "société", "client", "centre", "assistance", "garantir", "anonyme", "sg", "bnp paribas"])
+    keywords: stemKeywords(["capital", "cordialement", "remercier", "confiance", "fonctionnement", "mettre", "cher", "analyse", "société", "client", "centre", "sg", "diviser", "nominal", "inchangé", "anonyme", "assistance", "efficace", "fédération", "hsc", "euro", "prier", "coordonnée", "garantir", "possible", "compte", "social", "essentiel", "action", "jour"])
   },
   {
     name: "Peur",
-    keywords: stemKeywords(["supprimer", "expirer", "suspendre", "échouer", "danger", "menace", "perte"])
+    keywords: stemKeywords(["confidentialité", "droit", "envoyer", "avis", "personnel", "politique", "traitement", "lire", "mail", "garantie", "loi", "avantage", "argent", "public", "traiter", "condition", "responsable", "utilisation", "accepter", "référence", "prendre", "com", "transaction", "comprendre", "année", "publicité", "donnée", "web", "total", "entrer", "fidélité", "simplement", "gagner", "gratuit", "image", "réclamer", "félicitation", "programme", "retirer", "récompense", "expirer", "sondage", "expired", "has", "offrir", "fantastique", "sélectionner", "participer", "tour", "gratuitement", "casino", "cadre", "membership", "bonus", "prolonger", "obtenir", "machine", "exclusif", "choisir", "abonnement"])
   },
   {
     name: "Personnalisation",
-    keywords: stemKeywords(["colis", "adresse", "suivi", "expéditeur", "fedex", "gls"])
+    keywords: stemKeywords(["colis", "livraison", "suivre", "livrer", "reconfirmer", "confirmation", "présent", "signer", "part", "envoi", "adresse", "vérifier", "besoin", "illisible", "caractère", "attente", "recevoir", "e_mail", "prévoir", "ouvrable", "entrepôt", "gls", "écrire", "spécial", "poste", "commander", "inconnu", "planifier", "expéditeur", "fedex"])
   },
   {
     name: "Amorçage",
-    keywords: stemKeywords(["abonnement", "facturation", "cycle", "renouveler", "paiement", "prime"])
+    keywords: stemKeywords(["facturation", "expiration", "update", "produire", "échouer", "cycle", "évidemment", "lister", "revoir", "valider", "récent", "paiement", "abonnement", "hold", "renouveler", "mensuel", "payment", "suspendre", "date", "mercredi", "essayer", "annuler", "réessayer", "netflix", "issu", "filière", "associatif", "archivée", "claudelands", "syndical"])
   },
   {
     name: "Tentation",
-    keywords: stemKeywords(["femme", "sexy", "rencontre", "amour", "flirter", "chatte", "aventure"])
+    keywords: stemKeywords(["femme", "soir", "photo", "voir", "désinscrire", "profil", "rencontrer", "aimer", "répondre", "amour", "discuter", "coeur", "aventure", "chatter", "sexy", "am", "chattez", "bombe", "flirter", "sortir", "désabonner", "rencontre", "évaluer", "ensemble", "invitation", "célibataire", "sexfinder", "meetup", "local", "flirtback"])
   }
 ];
