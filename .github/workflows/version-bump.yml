@@ -27,7 +27,6 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-          token: ${{ secrets.push_token }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -35,6 +34,7 @@ jobs:
           node-version: 20
 
       - name: Bump version files
+        id: bump
         run: |
           set -euo pipefail
 
@@ -43,6 +43,7 @@ jobs:
           NEXT_VERSION=$(node -e "const current = process.argv[1]; const bump = process.argv[2]; const parts = current.split('.').map(Number); if (parts.length !== 3 || parts.some(Number.isNaN)) { throw new Error('Invalid current version'); } let next; if (bump === 'major') { next = [parts[0] + 1, 0, 0]; } else if (bump === 'minor') { next = [parts[0], parts[1] + 1, 0]; } else if (bump === 'patch') { next = [parts[0], parts[1], parts[2] + 1]; } else { throw new Error('Invalid version bump'); } process.stdout.write(next.join('.'));" "$CURRENT_VERSION" "$BUMP")
 
           npm version "$NEXT_VERSION" --no-git-tag-version --allow-same-version
+          echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
 
           node <<'NODE'
           const fs = require('fs');
@@ -77,3 +78,20 @@ jobs:
           git add package.json package-lock.json manifest.json README.md
           git commit -m "chore: bump version to $(node -p "require('./package.json').version")"
           git push origin HEAD:${{ github.ref_name }}
+
+      - name: Tag, build & release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION="v$(node -p "require('./package.json').version")"
+          git tag -a "$VERSION" -m "Release $VERSION"
+          git push origin "$VERSION"
+          npm ci
+          npm run build
+
+      - name: Create Release & Upload Artifact
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.bump.outputs.version }}
+          files: dist/psychological-manipulation-detector.xpi
