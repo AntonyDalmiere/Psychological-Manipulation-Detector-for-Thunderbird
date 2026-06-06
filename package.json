@@ -1,6 +1,6 @@
 {
   "name": "psychological-manipulation-detector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Thunderbird extension that detects psychological manipulation techniques in emails",
   "author": "Antony Dalmiere",
   "license": "CC0-1.0",
