@@ -27,6 +27,8 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
+          token: ${{ secrets.push_token }}
+
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -42,13 +44,13 @@ jobs:
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           NEXT_VERSION=$(node -e "const current = process.argv[1]; const bump = process.argv[2]; const parts = current.split('.').map(Number); if (parts.length !== 3 || parts.some(Number.isNaN)) { throw new Error('Invalid current version'); } let next; if (bump === 'major') { next = [parts[0] + 1, 0, 0]; } else if (bump === 'minor') { next = [parts[0], parts[1] + 1, 0]; } else if (bump === 'patch') { next = [parts[0], parts[1], parts[2] + 1]; } else { throw new Error('Invalid version bump'); } process.stdout.write(next.join('.'));" "$CURRENT_VERSION" "$BUMP")
 
-          npm version "$NEXT_VERSION" --no-git-tag-version --allow-same-version
+          npm version "$NEXT_VERSION" --no-git-tag-version --no-commit --allow-same-version
           echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
 
-          node <<'NODE'
+          NEXT_VERSION="$NEXT_VERSION" node <<'NODE'
           const fs = require('fs');
 
-          const nextVersion = require('./package.json').version;
+          const nextVersion = process.env.NEXT_VERSION;
 
           const manifestPath = './manifest.json';
           const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
