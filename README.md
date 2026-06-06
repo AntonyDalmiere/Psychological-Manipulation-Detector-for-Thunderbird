@@ -147,4 +147,4 @@ CC0-1.0 (Public Domain Dedication)
 ---
 
 **Developer:** Antony Dalmiere, LAAS-CNRS  
-**Version:** 1.0.1
+**Version:** 1.0.2
