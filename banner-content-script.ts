@@ -125,6 +125,15 @@ function isHighlightableNode(node: Text): boolean {
   return !el.closest('#keyword-chips-container, .safe-notification, .keyword-highlight');
 }
 
+function collectTextNodes(): Text[] {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode: (node) => isHighlightableNode(node as Text) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+  });
+  const nodes: Text[] = [];
+  let n; while ((n = walker.nextNode())) nodes.push(n as Text);
+  return nodes;
+}
+
 function buildKeywordRegex(keywords: string[]): RegExp {
   const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   return new RegExp(`(${escaped.join('|')})`, 'gi');
