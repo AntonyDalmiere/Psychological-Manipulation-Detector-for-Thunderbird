@@ -150,6 +150,16 @@ function buildHighlightFragment(text: string, regex: RegExp): DocumentFragment {
   if (i < text.length) frag.appendChild(document.createTextNode(text.slice(i))); return frag;
 }
 
+function highlightKeywords(keywords: string[]) {
+  if (keywords.length === 0) return;
+  const regex = buildKeywordRegex(keywords);
+  collectTextNodes().forEach(node => {
+    const text = node.textContent || '';
+    if (!regex.test(text)) { regex.lastIndex = 0; return; }
+    regex.lastIndex = 0; node.parentNode!.replaceChild(buildHighlightFragment(text, regex), node);
+  });
+}
+
 function buildKeywordRegex(keywords: string[]): RegExp {
   const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   return new RegExp(`(${escaped.join('|')})`, 'gi');
