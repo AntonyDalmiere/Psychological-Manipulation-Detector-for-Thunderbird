@@ -118,6 +118,11 @@ function removeBanner() {
   }
 }
 
+function buildKeywordRegex(keywords: string[]): RegExp {
+  const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  return new RegExp(`(${escaped.join('|')})`, 'gi');
+}
+
 /**
  * Show the banner at the top of the message viewer
  */
