@@ -134,6 +134,13 @@ function collectTextNodes(): Text[] {
   return nodes;
 }
 
+function createMarkElement(word: string): HTMLElement {
+  const mark = document.createElement('mark');
+  mark.className = 'keyword-highlight';
+  mark.textContent = word;
+  return mark;
+}
+
 function buildKeywordRegex(keywords: string[]): RegExp {
   const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   return new RegExp(`(${escaped.join('|')})`, 'gi');
