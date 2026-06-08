@@ -187,3 +187,8 @@
 .score-badge.eleve    { background: #e67e22; }
 .score-badge.modere   { background: #f1c40f; color: #333; }
 .score-badge.faible   { background: #27ae60; }
+.keyword-highlight {
+  background: rgba(255, 200, 0, 0.4);
+  border-radius: 2px;
+  padding: 0 2px;
+}
