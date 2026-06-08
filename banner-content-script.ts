@@ -141,6 +141,15 @@ function createMarkElement(word: string): HTMLElement {
   return mark;
 }
 
+function buildHighlightFragment(text: string, regex: RegExp): DocumentFragment {
+  const frag = document.createDocumentFragment(); let i = 0, m;
+  while ((m = regex.exec(text)) !== null) {
+    if (m.index > i) frag.appendChild(document.createTextNode(text.slice(i, m.index)));
+    frag.appendChild(createMarkElement(m[0])); i = m.index + m[0].length;
+  }
+  if (i < text.length) frag.appendChild(document.createTextNode(text.slice(i))); return frag;
+}
+
 function buildKeywordRegex(keywords: string[]): RegExp {
   const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   return new RegExp(`(${escaped.join('|')})`, 'gi');
