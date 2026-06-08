@@ -30,6 +30,16 @@ function getTechniqueClass(name: string): string {
   }
 }
 
+const TECHNIQUE_NAME_MAP: Record<string, string> = {
+  'Autorité': 'autorite', 'Peur': 'peur', 'Personnalisation': 'personnalisation',
+  'Amorçage': 'amorcage', 'Tentation': 'tentation',
+};
+
+function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
+  const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
+  return Math.min(100, Math.round((weighted / totalKeywords) * 100));
+}
+
 function getDangerLabel(score: number): string {
   if (score >= 76) return 'critique';
   if (score >= 51) return 'eleve';
