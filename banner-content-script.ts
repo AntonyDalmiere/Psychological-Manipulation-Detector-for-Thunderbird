@@ -118,6 +118,13 @@ function removeBanner() {
   }
 }
 
+function isHighlightableNode(node: Text): boolean {
+  const el = node.parentElement;
+  if (!el) return false;
+  if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return false;
+  return !el.closest('#keyword-chips-container, .safe-notification, .keyword-highlight');
+}
+
 function buildKeywordRegex(keywords: string[]): RegExp {
   const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   return new RegExp(`(${escaped.join('|')})`, 'gi');
