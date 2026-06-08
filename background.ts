@@ -102,11 +102,14 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
     }
 
     const totalKeywords = TECHNIQUE_KEYWORDS.reduce((sum, t) => sum + t.keywords.length, 0);
+    const stored = await browser.storage.local.get('techniqueWeights');
+    const weights: Record<string, number> = (stored as any).techniqueWeights ?? {};
     if (matchedTechniques.length > 0) {
       await browser.tabs.sendMessage(tab.id!, {
         action: 'showBanner',
         techniques: matchedTechniques,
         totalKeywords,
+        weights,
       });
     } else {
       await browser.tabs.sendMessage(tab.id!, { action: 'showSafe' });
