@@ -172,6 +172,7 @@ function showBanner(techniques: { name: string; keywords: string[] }[], totalKey
   const chips = createChips(techniques, totalKeywords, weights);
   document.body.appendChild(chips);
   isBannerVisible = true;
+  highlightKeywords(techniques.reduce((acc: string[], t) => acc.concat(t.keywords), []));
 }
 
 /**
