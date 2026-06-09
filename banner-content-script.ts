@@ -118,6 +118,7 @@ function removeBanner() {
   }
 }
 
+/** Returns true if the text node is safe to highlight (not inside script, style, or UI elements). */
 function isHighlightableNode(node: Text): boolean {
   const el = node.parentElement;
   if (!el) return false;
