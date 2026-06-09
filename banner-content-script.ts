@@ -144,6 +144,7 @@ function createMarkElement(word: string): HTMLElement {
   return mark;
 }
 
+/** Splits a text string into a DocumentFragment, wrapping each regex match in a mark element. */
 function buildHighlightFragment(text: string, regex: RegExp): DocumentFragment {
   const frag = document.createDocumentFragment(); let i = 0, m;
   while ((m = regex.exec(text)) !== null) {
