@@ -136,6 +136,7 @@ function collectTextNodes(): Text[] {
   return nodes;
 }
 
+/** Wraps a matched word in a <mark> element with the keyword-highlight class. */
 function createMarkElement(word: string): HTMLElement {
   const mark = document.createElement('mark');
   mark.className = 'keyword-highlight';
