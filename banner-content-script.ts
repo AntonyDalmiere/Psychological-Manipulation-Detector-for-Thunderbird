@@ -126,6 +126,7 @@ function isHighlightableNode(node: Text): boolean {
   return !el.closest('#keyword-chips-container, .safe-notification, .keyword-highlight');
 }
 
+/** Walks the document body and returns all highlightable text nodes. */
 function collectTextNodes(): Text[] {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) => isHighlightableNode(node as Text) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
