@@ -165,6 +165,7 @@ function highlightKeywords(keywords: string[]) {
   });
 }
 
+/** Compiles a list of keywords into a single global case-insensitive regex. */
 function buildKeywordRegex(keywords: string[]): RegExp {
   const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   return new RegExp(`(${escaped.join('|')})`, 'gi');
