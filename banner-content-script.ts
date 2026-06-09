@@ -154,6 +154,7 @@ function buildHighlightFragment(text: string, regex: RegExp): DocumentFragment {
   if (i < text.length) frag.appendChild(document.createTextNode(text.slice(i))); return frag;
 }
 
+/** Highlights all keyword occurrences in the email body by replacing text nodes in place. */
 function highlightKeywords(keywords: string[]) {
   if (keywords.length === 0) return;
   const regex = buildKeywordRegex(keywords);
