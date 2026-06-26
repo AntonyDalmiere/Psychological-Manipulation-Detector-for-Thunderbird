@@ -93,6 +93,13 @@ function createScoreRow(score: number): HTMLElement {
   row.append(label, val); return row;
 }
 
+function createProgressBar(score: number): HTMLElement {
+  const wrap = document.createElement('div'); wrap.className = 'progress-wrap';
+  const bar = document.createElement('div'); bar.className = 'progress-bar';
+  bar.style.width = `${score}%`; bar.style.background = scoreToColor(score);
+  wrap.appendChild(bar); return wrap;
+}
+
 /**
  * Create the technique chips display
  */
