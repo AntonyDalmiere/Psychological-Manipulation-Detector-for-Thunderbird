@@ -56,6 +56,11 @@ function calcManipScore(techniques: { name: string; keywords: string[] }[], weig
   return Math.min(100, Math.round(sum + getCooccurrenceBonus(techniques.length)));
 }
 
+function calcPhishingScore(n: number): number {
+  if (n === 0) return 0;
+  return Math.min(100, 50 + (n - 1) * 10);
+}
+
 function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
   const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
   return Math.min(100, Math.round((weighted / totalKeywords) * 100));
