@@ -85,6 +85,14 @@ function createModalHeader(onClose: () => void): HTMLElement {
   h.append(t, b); return h;
 }
 
+function createScoreRow(score: number): HTMLElement {
+  const row = document.createElement('div'); row.className = 'score-row';
+  const label = document.createElement('span'); label.className = 'score-label'; label.textContent = 'SCORE DE DANGER';
+  const val = document.createElement('span'); val.className = 'score-value';
+  val.textContent = `${score}/100 — ${getDangerLabel(score)}`; val.style.color = scoreToColor(score);
+  row.append(label, val); return row;
+}
+
 /**
  * Create the technique chips display
  */
