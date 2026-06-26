@@ -100,6 +100,14 @@ function createProgressBar(score: number): HTMLElement {
   wrap.appendChild(bar); return wrap;
 }
 
+function createChipNew(technique: { name: string; keywords: string[] }, onRemove: (el: HTMLElement) => void): HTMLElement {
+  const chip = document.createElement('div'); chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
+  const name = document.createElement('span'); name.className = 'chip-text'; name.textContent = technique.name;
+  const badge = document.createElement('span'); badge.className = 'chip-badge'; badge.textContent = String(technique.keywords.length);
+  const btn = document.createElement('button'); btn.className = 'chip-close'; btn.textContent = '✕'; btn.onclick = () => onRemove(chip);
+  chip.append(name, badge, btn); return chip;
+}
+
 /**
  * Create the technique chips display
  */
