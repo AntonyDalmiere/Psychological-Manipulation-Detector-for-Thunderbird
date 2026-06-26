@@ -35,6 +35,12 @@ const TECHNIQUE_NAME_MAP: Record<string, string> = {
   'Amorçage': 'amorcage', 'Tentation': 'tentation',
 };
 
+function getProfileMultiplier(weight: number): number {
+  if (weight >= 2) return 1.5;
+  if (weight >= 1.5) return 1.25;
+  return 1.0;
+}
+
 function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
   const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
   return Math.min(100, Math.round((weighted / totalKeywords) * 100));
