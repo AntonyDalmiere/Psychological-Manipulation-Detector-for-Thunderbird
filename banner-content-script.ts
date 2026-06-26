@@ -115,56 +115,14 @@ function createProfileLink(): HTMLElement {
   footer.appendChild(link); return footer;
 }
 
-/**
- * Create the technique chips display
- */
 function createChips(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number> = {}): HTMLElement {
-  // Remove existing banner if present
   removeBanner();
-  
-  // Create chips container (floating overlay)
-  const chipsContainer = document.createElement('div');
-  chipsContainer.id = 'keyword-chips-container';
-  chipsContainer.className = 'chips-container';
-
   const score = calculateScore(techniques, totalKeywords, weights);
-  const danger = getDangerLabel(score);
-  const badge = document.createElement('div');
-  badge.className = `score-badge ${danger}`;
-  badge.textContent = `${danger.charAt(0).toUpperCase() + danger.slice(1)} — ${score}%`;
-  chipsContainer.appendChild(badge);
-
-  // Create a chip for each technique
-  techniques.forEach((technique) => {
-    const chip = document.createElement('div');
-    chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
-    chip.title = `Matching keywords: ${technique.keywords.join(', ')}`;
-    
-    // Chip text (technique name)
-    const chipText = document.createElement('span');
-    chipText.className = 'chip-text';
-    chipText.textContent = technique.name;
-    chip.appendChild(chipText);
-    
-    // Close button for individual chip
-    const closeButton = document.createElement('button');
-    closeButton.className = 'chip-close';
-    closeButton.innerHTML = '&times;';
-    closeButton.addEventListener('click', () => {
-      chip.remove();
-      // Hide container if no chips left
-      if (chipsContainer.children.length === 0) {
-        removeBanner();
-      }
-    });
-    chip.appendChild(closeButton);
-    
-    chipsContainer.appendChild(chip);
-  });
-  
-  bannerElement = chipsContainer;
-  
-  return chipsContainer;
+  const modal = document.createElement('div'); modal.id = 'keyword-chips-container'; modal.className = 'manipulation-modal';
+  modal.append(createModalHeader(removeBanner), createScoreRow(score), createProgressBar(score));
+  const wrap = document.createElement('div'); wrap.className = 'chips-wrap';
+  techniques.forEach(t => wrap.appendChild(createChipNew(t, el => { el.remove(); if (!wrap.children.length) removeBanner(); })));
+  modal.append(wrap, createProfileLink()); bannerElement = modal; return modal;
 }
 
 /**
