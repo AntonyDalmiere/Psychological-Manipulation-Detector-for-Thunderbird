@@ -5,6 +5,11 @@
  * Less obstructive than full banner while maintaining visibility
  */
 
+/* Modal Footer */
+.modal-footer { margin-top: 12px; text-align: right; }
+.profile-link { font-size: 12px; color: #9aa0b8; cursor: pointer; }
+.profile-link:hover { color: #e0e4f0; }
+
 /* Safe Notification Toast */
 .safe-notification {
   position: fixed; bottom: 16px; right: 16px; z-index: 9999;
