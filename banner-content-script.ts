@@ -66,9 +66,9 @@ function scoreToColor(score: number): string {
   return `hsl(${hue}, 80%, 45%)`;
 }
 
-function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
-  const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
-  return Math.min(100, Math.round((weighted / totalKeywords) * 100));
+function calculateScore(techniques: { name: string; keywords: string[] }[], _totalKeywords: number, weights: Record<string, number>): number {
+  const totalKw = techniques.reduce((acc, t) => acc + t.keywords.length, 0);
+  return Math.max(calcManipScore(techniques, weights), calcPhishingScore(totalKw));
 }
 
 function getDangerLabel(score: number): string {
