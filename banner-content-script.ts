@@ -48,6 +48,14 @@ function getCooccurrenceBonus(count: number): number {
   return 0;
 }
 
+function calcManipScore(techniques: { name: string; keywords: string[] }[], weights: Record<string, number>): number {
+  const sum = techniques.reduce((acc, t) => {
+    const w = getProfileMultiplier(weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1);
+    return acc + Math.min(2, t.keywords.length) * 5 * w;
+  }, 0);
+  return Math.min(100, Math.round(sum + getCooccurrenceBonus(techniques.length)));
+}
+
 function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
   const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
   return Math.min(100, Math.round((weighted / totalKeywords) * 100));
