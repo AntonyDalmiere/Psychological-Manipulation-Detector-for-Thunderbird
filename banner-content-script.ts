@@ -72,10 +72,10 @@ function calculateScore(techniques: { name: string; keywords: string[] }[], tota
 }
 
 function getDangerLabel(score: number): string {
-  if (score >= 76) return 'critique';
-  if (score >= 51) return 'eleve';
-  if (score >= 21) return 'modere';
-  return 'faible';
+  if (score >= 75) return 'Critique';
+  if (score >= 50) return 'Élevé';
+  if (score >= 25) return 'Modéré';
+  return 'Faible';
 }
 
 /**
