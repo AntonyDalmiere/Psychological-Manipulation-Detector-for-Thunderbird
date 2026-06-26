@@ -61,6 +61,11 @@ function calcPhishingScore(n: number): number {
   return Math.min(100, 50 + (n - 1) * 10);
 }
 
+function scoreToColor(score: number): string {
+  const hue = Math.round(120 - score * 1.2);
+  return `hsl(${hue}, 80%, 45%)`;
+}
+
 function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
   const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
   return Math.min(100, Math.round((weighted / totalKeywords) * 100));
