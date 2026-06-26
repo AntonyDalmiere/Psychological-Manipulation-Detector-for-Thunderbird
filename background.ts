@@ -154,6 +154,10 @@ async function registerContentScript() {
 registerContentScript();
 
 browser.runtime.onInstalled.addListener(({ reason }) => {
-  if (reason === 'install') browser.tabs.create({ url: browser.runtime.getURL('onboarding.html') });
+  if (reason === 'install') browser.tabs.create({ url: browser.runtime.getURL('questionnaire.html') });
+});
+
+browser.runtime.onMessage.addListener((message: any) => {
+  if (message.action === 'openQuestionnaire') browser.tabs.create({ url: browser.runtime.getURL('questionnaire.html') });
 });
 console.log("Extension booted");
