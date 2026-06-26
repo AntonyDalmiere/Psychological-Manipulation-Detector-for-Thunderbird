@@ -78,6 +78,13 @@ function getDangerLabel(score: number): string {
   return 'Faible';
 }
 
+function createModalHeader(onClose: () => void): HTMLElement {
+  const h = document.createElement('div'); h.className = 'modal-header';
+  const t = document.createElement('span'); t.className = 'modal-title'; t.textContent = '⚠ ANALYSE DE MANIPULATION';
+  const b = document.createElement('button'); b.className = 'modal-close'; b.textContent = '✕'; b.onclick = onClose;
+  h.append(t, b); return h;
+}
+
 /**
  * Create the technique chips display
  */
