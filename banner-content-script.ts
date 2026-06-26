@@ -108,6 +108,13 @@ function createChipNew(technique: { name: string; keywords: string[] }, onRemove
   chip.append(name, badge, btn); return chip;
 }
 
+function createProfileLink(): HTMLElement {
+  const footer = document.createElement('div'); footer.className = 'modal-footer';
+  const link = document.createElement('span'); link.className = 'profile-link'; link.textContent = '✱ Modifier mon profil';
+  link.onclick = () => browser.runtime.openOptionsPage();
+  footer.appendChild(link); return footer;
+}
+
 /**
  * Create the technique chips display
  */
