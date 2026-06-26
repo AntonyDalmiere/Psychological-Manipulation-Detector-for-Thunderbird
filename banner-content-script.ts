@@ -41,6 +41,13 @@ function getProfileMultiplier(weight: number): number {
   return 1.0;
 }
 
+function getCooccurrenceBonus(count: number): number {
+  if (count >= 4) return 30;
+  if (count === 3) return 18;
+  if (count === 2) return 8;
+  return 0;
+}
+
 function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
   const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
   return Math.min(100, Math.round((weighted / totalKeywords) * 100));
