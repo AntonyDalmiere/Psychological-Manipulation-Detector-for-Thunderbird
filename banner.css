@@ -35,6 +35,10 @@
 .progress-wrap { background: #2a2d42; border-radius: 4px; height: 6px; margin-bottom: 14px; overflow: hidden; }
 .progress-bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
 
+/* Chips wrapper inside modal */
+.chips-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-badge { background: rgba(255,255,255,0.25); color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
 /* Individual Technique Chip */
 .technique-chip {
   display: inline-flex;
