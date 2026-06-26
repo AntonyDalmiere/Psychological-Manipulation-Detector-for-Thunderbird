@@ -35,68 +35,94 @@ const TECHNIQUE_NAME_MAP: Record<string, string> = {
   'Amorçage': 'amorcage', 'Tentation': 'tentation',
 };
 
-function calculateScore(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number>): number {
-  const weighted = techniques.reduce((sum, t) => sum + t.keywords.length * (weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1), 0);
-  return Math.min(100, Math.round((weighted / totalKeywords) * 100));
+function getProfileMultiplier(weight: number): number {
+  if (weight >= 2) return 1.5;
+  if (weight >= 1.5) return 1.25;
+  return 1.0;
+}
+
+function getCooccurrenceBonus(count: number): number {
+  if (count >= 4) return 30;
+  if (count === 3) return 18;
+  if (count === 2) return 8;
+  return 0;
+}
+
+function calcManipScore(techniques: { name: string; keywords: string[] }[], weights: Record<string, number>): number {
+  const sum = techniques.reduce((acc, t) => {
+    const w = getProfileMultiplier(weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1);
+    return acc + Math.min(2, t.keywords.length) * 5 * w;
+  }, 0);
+  return Math.min(100, Math.round(sum + getCooccurrenceBonus(techniques.length)));
+}
+
+function calcPhishingScore(n: number): number {
+  if (n === 0) return 0;
+  return Math.min(100, 50 + (n - 1) * 10);
+}
+
+function scoreToColor(score: number): string {
+  const hue = Math.round(120 - score * 1.2);
+  return `hsl(${hue}, 80%, 45%)`;
+}
+
+function calculateScore(techniques: { name: string; keywords: string[] }[], _totalKeywords: number, weights: Record<string, number>): number {
+  const totalKw = techniques.reduce((acc, t) => acc + t.keywords.length, 0);
+  return Math.max(calcManipScore(techniques, weights), calcPhishingScore(totalKw));
 }
 
 function getDangerLabel(score: number): string {
-  if (score >= 76) return 'critique';
-  if (score >= 51) return 'eleve';
-  if (score >= 21) return 'modere';
-  return 'faible';
+  if (score >= 75) return 'Critique';
+  if (score >= 50) return 'Élevé';
+  if (score >= 25) return 'Modéré';
+  return 'Faible';
 }
 
-/**
- * Create the technique chips display
- */
+function createModalHeader(onClose: () => void): HTMLElement {
+  const h = document.createElement('div'); h.className = 'modal-header';
+  const t = document.createElement('span'); t.className = 'modal-title'; t.textContent = '⚠ ANALYSE DE MANIPULATION';
+  const b = document.createElement('button'); b.className = 'modal-close'; b.textContent = '✕'; b.onclick = onClose;
+  h.append(t, b); return h;
+}
+
+function createScoreRow(score: number): HTMLElement {
+  const row = document.createElement('div'); row.className = 'score-row';
+  const label = document.createElement('span'); label.className = 'score-label'; label.textContent = 'SCORE DE DANGER';
+  const val = document.createElement('span'); val.className = 'score-value';
+  val.textContent = `${score}/100 — ${getDangerLabel(score)}`; val.style.color = scoreToColor(score);
+  row.append(label, val); return row;
+}
+
+function createProgressBar(score: number): HTMLElement {
+  const wrap = document.createElement('div'); wrap.className = 'progress-wrap';
+  const bar = document.createElement('div'); bar.className = 'progress-bar';
+  bar.style.width = `${score}%`; bar.style.background = scoreToColor(score);
+  wrap.appendChild(bar); return wrap;
+}
+
+function createChipNew(technique: { name: string; keywords: string[] }, onRemove: (el: HTMLElement) => void): HTMLElement {
+  const chip = document.createElement('div'); chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
+  const name = document.createElement('span'); name.className = 'chip-text'; name.textContent = technique.name;
+  const badge = document.createElement('span'); badge.className = 'chip-badge'; badge.textContent = String(technique.keywords.length);
+  const btn = document.createElement('button'); btn.className = 'chip-close'; btn.textContent = '✕'; btn.onclick = () => onRemove(chip);
+  chip.append(name, badge, btn); return chip;
+}
+
+function createProfileLink(): HTMLElement {
+  const footer = document.createElement('div'); footer.className = 'modal-footer';
+  const link = document.createElement('span'); link.className = 'profile-link'; link.textContent = '✱ Modifier mon profil';
+  link.onclick = () => browser.runtime.openOptionsPage();
+  footer.appendChild(link); return footer;
+}
+
 function createChips(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number> = {}): HTMLElement {
-  // Remove existing banner if present
   removeBanner();
-  
-  // Create chips container (floating overlay)
-  const chipsContainer = document.createElement('div');
-  chipsContainer.id = 'keyword-chips-container';
-  chipsContainer.className = 'chips-container';
-
   const score = calculateScore(techniques, totalKeywords, weights);
-  const danger = getDangerLabel(score);
-  const badge = document.createElement('div');
-  badge.className = `score-badge ${danger}`;
-  badge.textContent = `${danger.charAt(0).toUpperCase() + danger.slice(1)} — ${score}%`;
-  chipsContainer.appendChild(badge);
-
-  // Create a chip for each technique
-  techniques.forEach((technique) => {
-    const chip = document.createElement('div');
-    chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
-    chip.title = `Matching keywords: ${technique.keywords.join(', ')}`;
-    
-    // Chip text (technique name)
-    const chipText = document.createElement('span');
-    chipText.className = 'chip-text';
-    chipText.textContent = technique.name;
-    chip.appendChild(chipText);
-    
-    // Close button for individual chip
-    const closeButton = document.createElement('button');
-    closeButton.className = 'chip-close';
-    closeButton.innerHTML = '&times;';
-    closeButton.addEventListener('click', () => {
-      chip.remove();
-      // Hide container if no chips left
-      if (chipsContainer.children.length === 0) {
-        removeBanner();
-      }
-    });
-    chip.appendChild(closeButton);
-    
-    chipsContainer.appendChild(chip);
-  });
-  
-  bannerElement = chipsContainer;
-  
-  return chipsContainer;
+  const modal = document.createElement('div'); modal.id = 'keyword-chips-container'; modal.className = 'manipulation-modal';
+  modal.append(createModalHeader(removeBanner), createScoreRow(score), createProgressBar(score));
+  const wrap = document.createElement('div'); wrap.className = 'chips-wrap';
+  techniques.forEach(t => wrap.appendChild(createChipNew(t, el => { el.remove(); if (!wrap.children.length) removeBanner(); })));
+  modal.append(wrap, createProfileLink()); bannerElement = modal; return modal;
 }
 
 /**

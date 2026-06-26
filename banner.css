@@ -5,6 +5,11 @@
  * Less obstructive than full banner while maintaining visibility
  */
 
+/* Modal Footer */
+.modal-footer { margin-top: 12px; text-align: right; }
+.profile-link { font-size: 12px; color: #9aa0b8; cursor: pointer; }
+.profile-link:hover { color: #e0e4f0; }
+
 /* Safe Notification Toast */
 .safe-notification {
   position: fixed; bottom: 16px; right: 16px; z-index: 9999;
@@ -12,18 +17,32 @@
   padding: 8px 16px; border-radius: 8px; font-size: 13px;
 }
 
-/* Chips Container - Floating Overlay */
-.chips-container {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
-  z-index: 9999;
-  pointer-events: none; /* Allow clicks to pass through empty space */
+/* Manipulation Modal - Dark Floating Card */
+.manipulation-modal {
+  position: fixed; top: 16px; right: 16px; z-index: 9999;
+  background: #1a1d2e; border-radius: 12px; padding: 16px 20px;
+  width: 320px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #e0e4f0;
 }
+
+/* Modal Header */
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.modal-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #9aa0b8; }
+.modal-close { background: #2a2d42; border: none; color: #9aa0b8; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: #373b57; color: #e0e4f0; }
+
+/* Score Row */
+.score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.score-label { font-size: 11px; font-weight: 600; color: #9aa0b8; letter-spacing: 0.06em; }
+.score-value { font-size: 16px; font-weight: 700; }
+
+/* Progress Bar */
+.progress-wrap { background: #2a2d42; border-radius: 4px; height: 6px; margin-bottom: 14px; overflow: hidden; }
+.progress-bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+
+/* Chips wrapper inside modal */
+.chips-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-badge { background: rgba(255,255,255,0.25); color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
 
 /* Individual Technique Chip */
 .technique-chip {
@@ -135,55 +154,3 @@
   }
 }
 
-/* Animation for chips appearance */
-@keyframes chipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.technique-chip {
-  animation: chipFadeIn 0.25s ease-out;
-}
-
-/* Stagger animation for multiple chips */
-.technique-chip:nth-child(2) { animation-delay: 0.05s; }
-.technique-chip:nth-child(3) { animation-delay: 0.1s; }
-.technique-chip:nth-child(4) { animation-delay: 0.15s; }
-.technique-chip:nth-child(5) { animation-delay: 0.2s; }
-
-/* High Contrast Mode Support */
-@media (prefers-contrast: high) {
-  .technique-chip.warning {
-    background: #d70022;
-    border: 2px solid #ffffff;
-  }
-  
-  .chip-close {
-    background: rgba(255, 255, 255, 0.3);
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .technique-chip.warning {
-    background: linear-gradient(135deg, #e60025 0%, #d0001f 100%);
-    box-shadow: 0 2px 8px rgba(230, 0, 37, 0.5);
-  }
-}
-.score-badge {
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #fff;
-}
-.score-badge.critique { background: #c0392b; }
-.score-badge.eleve    { background: #e67e22; }
-.score-badge.modere   { background: #f1c40f; color: #333; }
-.score-badge.faible   { background: #27ae60; }
