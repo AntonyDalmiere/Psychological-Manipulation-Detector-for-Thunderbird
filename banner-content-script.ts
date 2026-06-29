@@ -100,12 +100,10 @@ function createProgressBar(score: number): HTMLElement {
   wrap.appendChild(bar); return wrap;
 }
 
-function createChipNew(technique: { name: string; keywords: string[] }, onRemove: (el: HTMLElement) => void): HTMLElement {
+function createChipNew(technique: { name: string; keywords: string[] }): HTMLElement {
   const chip = document.createElement('div'); chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
   const name = document.createElement('span'); name.className = 'chip-text'; name.textContent = technique.name;
-  const badge = document.createElement('span'); badge.className = 'chip-badge'; badge.textContent = String(technique.keywords.length);
-  const btn = document.createElement('button'); btn.className = 'chip-close'; btn.textContent = '✕'; btn.onclick = () => onRemove(chip);
-  chip.append(name, badge, btn); return chip;
+  chip.append(name); return chip;
 }
 
 function createProfileLink(): HTMLElement {
@@ -121,7 +119,7 @@ function createChips(techniques: { name: string; keywords: string[] }[], totalKe
   const modal = document.createElement('div'); modal.id = 'keyword-chips-container'; modal.className = 'manipulation-modal';
   modal.append(createModalHeader(removeBanner), createScoreRow(score), createProgressBar(score));
   const wrap = document.createElement('div'); wrap.className = 'chips-wrap';
-  techniques.forEach(t => wrap.appendChild(createChipNew(t, el => { el.remove(); if (!wrap.children.length) removeBanner(); })));
+  techniques.forEach(t => wrap.appendChild(createChipNew(t)));
   modal.append(wrap, createProfileLink()); bannerElement = modal; return modal;
 }
 
