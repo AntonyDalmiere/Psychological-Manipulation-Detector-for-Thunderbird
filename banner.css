@@ -26,18 +26,18 @@
 }
 
 /* Modal Header */
-.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.modal-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #9aa0b8; }
-.modal-close { background: #2a2d42; border: none; color: #9aa0b8; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.modal-title { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #9aa0b8; }
+.modal-close { background: #2a2d42; border: none; color: #9aa0b8; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
 .modal-close:hover { background: #373b57; color: #e0e4f0; }
 
 /* Score Row */
-.score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.score-label { font-size: 11px; font-weight: 600; color: #9aa0b8; letter-spacing: 0.06em; }
-.score-value { font-size: 16px; font-weight: 700; }
+.score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.score-label { font-size: 10px; font-weight: 600; color: #9aa0b8; letter-spacing: 0.06em; }
+.score-value { font-size: 13px; font-weight: 700; }
 
 /* Progress Bar */
-.progress-wrap { background: #2a2d42; border-radius: 4px; height: 6px; margin-bottom: 14px; overflow: hidden; }
+.progress-wrap { background: #2a2d42; border-radius: 3px; height: 4px; margin-bottom: 10px; overflow: hidden; }
 .progress-bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
 
 /* Chips wrapper inside modal */
