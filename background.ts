@@ -154,7 +154,7 @@ async function registerContentScript() {
 registerContentScript();
 
 browser.runtime.onInstalled.addListener(({ reason }) => {
-  if (reason === 'install') browser.tabs.create({ url: browser.runtime.getURL('questionnaire.html') });
+  if (reason === 'install') browser.storage.local.set({ pendingQuestionnaire: true });
 });
 
 browser.runtime.onMessage.addListener((message: any) => {
