@@ -123,8 +123,13 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
  * Must be defined as a separate function to allow listener registration before await
  */
 async function handleMessagesDisplayed(tab: browser.tabs.Tab, messageList: { messages: any[] }) {
+  const pending = await browser.storage.local.get('pendingQuestionnaire');
+  if ((pending as any).pendingQuestionnaire) {
+    await browser.storage.local.remove('pendingQuestionnaire');
+    await browser.tabs.create({ url: browser.runtime.getURL('questionnaire.html') });
+  }
   const { messages } = messageList;
-  
+
   for (let i = 0; i < messages.length; i++) {
     await checkMessageAndShowBanner(tab, messages[i]);
   }
