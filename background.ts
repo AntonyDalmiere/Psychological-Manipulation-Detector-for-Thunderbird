@@ -163,6 +163,6 @@ browser.runtime.onInstalled.addListener(({ reason }) => {
 });
 
 browser.runtime.onMessage.addListener((message: any) => {
-  if (message.action === 'openQuestionnaire') browser.tabs.create({ url: browser.runtime.getURL('questionnaire.html') });
+  if (message.action === 'openQuestionnaire') browser.runtime.openOptionsPage();
 });
 console.log("Extension booted");
