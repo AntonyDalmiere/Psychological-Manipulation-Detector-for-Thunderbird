@@ -43,29 +43,13 @@ function showScreen(id: string) {
   document.getElementById(id)!.classList.add('active');
 }
 
-function renderQuestion() {
-  const q = questions[current];
-  selected = null;
-  (document.getElementById('btn-next') as HTMLButtonElement).disabled = true;
-  const pct = Math.round((current / questions.length) * 100);
-  (document.getElementById('progress-fill') as HTMLElement).style.width = `${pct}%`;
+function renderQuestion(animate = false) {
+  const q = questions[current]; selected = null;
+  (document.getElementById('progress-fill') as HTMLElement).style.width = `${Math.round((current / questions.length) * 100)}%`;
   document.getElementById('progress-label')!.textContent = `Question ${current + 1} / ${questions.length}`;
-  document.getElementById('question-text')!.textContent = q.text;
-  const container = document.getElementById('answers-container')!;
-  container.innerHTML = '';
-  const labels = ['A', 'B', 'C', 'D'];
-  q.answers.forEach((answer, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'answer-btn';
-    btn.innerHTML = `<span class="answer-label">${labels[i]}.</span>${answer}`;
-    btn.onclick = () => {
-      container.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selected = i;
-      (document.getElementById('btn-next') as HTMLButtonElement).disabled = false;
-    };
-    container.appendChild(btn);
-  });
+  const stage = document.getElementById('flashcard-stage')!;
+  const card = createCard(q); if (animate) card.classList.add('slide-in');
+  stage.innerHTML = ''; stage.appendChild(card);
 }
 
 function nextQuestion() {
