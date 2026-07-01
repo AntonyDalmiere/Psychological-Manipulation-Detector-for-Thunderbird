@@ -24,6 +24,14 @@ function scoreToLabel(score: number): string {
 
 function scoreToPercent(score: number): number { return Math.round((score / 12) * 100); }
 
+function createCard(q: Question): HTMLElement {
+  const card = document.createElement('div'); card.className = 'flashcard';
+  const text = document.createElement('div'); text.className = 'question-text'; text.textContent = q.text;
+  const wrap = document.createElement('div');
+  ['A','B','C','D'].forEach((l, i) => { const btn = document.createElement('button'); btn.className = 'answer-btn'; btn.innerHTML = `<span class="answer-label">${l}.</span>${q.answers[i]}`; btn.onclick = () => { wrap.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); selected = i; setTimeout(nextQuestion, 350); }; wrap.appendChild(btn); });
+  card.append(text, wrap); return card;
+}
+
 // State
 let questions: Question[] = [];
 let current = 0;
