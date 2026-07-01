@@ -56,8 +56,10 @@ function nextQuestion() {
   if (selected === null) return;
   dimScores[questions[current].dimension] += ANSWER_SCORES[selected];
   current++;
-  if (current < questions.length) { renderQuestion(); return; }
-  saveAndShowResult();
+  if (current >= questions.length) { saveAndShowResult(); return; }
+  const stage = document.getElementById('flashcard-stage')!;
+  const old = stage.firstElementChild as HTMLElement; if (old) old.classList.add('slide-out');
+  setTimeout(() => renderQuestion(true), 260);
 }
 
 async function saveAndShowResult() {
@@ -95,5 +97,4 @@ function startQuestionnaire() {
 
 document.getElementById('btn-start')!.addEventListener('click', startQuestionnaire);
 document.getElementById('btn-skip')!.addEventListener('click', skipToMax);
-document.getElementById('btn-next')!.addEventListener('click', nextQuestion);
 document.getElementById('btn-redo')!.addEventListener('click', startQuestionnaire);
