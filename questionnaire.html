@@ -32,9 +32,12 @@
     .answer-btn:hover { border-color: #a5b4fc; background: #f5f3ff; }
     .answer-btn.selected { border-color: #4f46e5; background: #eef2ff; color: #1a1d2e; font-weight: 500; }
     .answer-label { font-weight: 700; color: #4f46e5; margin-right: 10px; }
-    .btn-next { margin-top: 20px; padding: 12px 32px; background: #4f46e5; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; float: right; transition: background 0.15s; }
-    .btn-next:disabled { background: #c7d2fe; cursor: not-allowed; }
-    .btn-next:not(:disabled):hover { background: #4338ca; }
+    /* Flashcard */
+    .flashcard-stage { position: relative; overflow: hidden; }
+    @keyframes slideIn { from { transform: translateX(60px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-60px); opacity: 0; } }
+    .flashcard.slide-in { animation: slideIn 0.25s ease forwards; }
+    .flashcard.slide-out { animation: slideOut 0.25s ease forwards; pointer-events: none; }
 
     /* Result */
     .result-icon { font-size: 56px; text-align: center; margin-bottom: 20px; }
