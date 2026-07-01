@@ -126,7 +126,7 @@ async function handleMessagesDisplayed(tab: browser.tabs.Tab, messageList: { mes
   const pending = await browser.storage.local.get('pendingQuestionnaire');
   if ((pending as any).pendingQuestionnaire) {
     await browser.storage.local.remove('pendingQuestionnaire');
-    await browser.tabs.create({ url: browser.runtime.getURL('questionnaire.html') });
+    await browser.runtime.openOptionsPage();
   }
   const { messages } = messageList;
 
