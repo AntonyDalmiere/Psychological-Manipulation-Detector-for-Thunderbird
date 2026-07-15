@@ -153,7 +153,7 @@ async function registerContentScript() {
 registerContentScript();
 
 browser.runtime.onInstalled.addListener(({ reason }) => {
-  if (reason === 'install') browser.storage.local.set({ pendingQuestionnaire: true });
+  if (reason === 'install') setTimeout(() => browser.runtime.openOptionsPage(), 1500);
 });
 
 browser.runtime.onMessage.addListener((message: any) => {
