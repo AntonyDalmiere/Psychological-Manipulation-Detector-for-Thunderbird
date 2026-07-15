@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Questionnaire APPÂT</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; }
+    .card { background: #fff; border-radius: 16px; padding: 48px 40px; max-width: 600px; width: 100%; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* Intro */
+    .shield { font-size: 48px; text-align: center; margin-bottom: 24px; }
+    .intro-title { font-size: 28px; font-weight: 800; color: #1a1d2e; text-align: center; margin-bottom: 6px; }
+    .intro-subtitle { font-size: 15px; color: #6b7280; text-align: center; margin-bottom: 28px; }
+    .intro-desc { font-size: 15px; color: #374151; line-height: 1.6; text-align: center; margin-bottom: 24px; }
+    .attention { background: #f3f0ff; border-left: 4px solid #7c3aed; border-radius: 6px; padding: 16px 18px; margin-bottom: 36px; font-size: 14px; color: #374151; line-height: 1.6; }
+    .attention strong { color: #1a1d2e; }
+    .btn-primary { display: block; width: 100%; padding: 14px; background: #4f46e5; color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 16px; transition: background 0.15s; }
+    .btn-primary:hover { background: #4338ca; }
+    .btn-skip { display: block; width: 100%; text-align: center; background: none; border: none; color: #9ca3af; font-size: 14px; cursor: pointer; margin-bottom: 8px; }
+    .btn-skip:hover { color: #6b7280; }
+    .skip-note { text-align: center; font-size: 12px; color: #9ca3af; font-style: italic; }
+
+    /* Questions */
+    .progress-bar-wrap { background: #e5e7eb; border-radius: 4px; height: 6px; margin-bottom: 8px; }
+    .progress-bar-fill { height: 100%; border-radius: 4px; background: #4f46e5; transition: width 0.3s ease; }
+    .progress-label { font-size: 12px; color: #9ca3af; margin-bottom: 28px; }
+    .question-text { font-size: 17px; font-weight: 600; color: #1a1d2e; line-height: 1.6; margin-bottom: 24px; }
+    .answer-btn { display: block; width: 100%; text-align: left; padding: 14px 16px; border: 2px solid #e5e7eb; border-radius: 10px; background: #fff; font-size: 14px; color: #374151; cursor: pointer; margin-bottom: 10px; transition: border-color 0.15s, background 0.15s; line-height: 1.5; }
+    .answer-btn:hover { border-color: #a5b4fc; background: #f5f3ff; }
+    .answer-btn.selected { border-color: #4f46e5; background: #eef2ff; color: #1a1d2e; font-weight: 500; }
+    .answer-label { font-weight: 700; color: #4f46e5; margin-right: 10px; }
+    /* Flashcard */
+    .flashcard-stage { position: relative; overflow: hidden; }
+    @keyframes slideIn { from { transform: translateX(60px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-60px); opacity: 0; } }
+    .flashcard.slide-in { animation: slideIn 0.25s ease forwards; }
+    .flashcard.slide-out { animation: slideOut 0.25s ease forwards; pointer-events: none; }
+
+    /* Result */
+    .result-icon { font-size: 56px; text-align: center; margin-bottom: 20px; }
+    .result-title { font-size: 24px; font-weight: 800; color: #1a1d2e; text-align: center; margin-bottom: 10px; }
+    .result-desc { font-size: 15px; color: #6b7280; text-align: center; margin-bottom: 32px; line-height: 1.6; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+    .result-dim { background: #f9fafb; border-radius: 10px; padding: 14px 16px; }
+    .result-dim-name { font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .result-dim-bar-wrap { background: #e5e7eb; border-radius: 3px; height: 5px; margin-bottom: 6px; }
+    .result-dim-bar { height: 100%; border-radius: 3px; }
+    .result-dim-label { font-size: 12px; color: #374151; font-weight: 500; }
+    .btn-redo { display: block; width: 100%; padding: 12px; background: #f3f4f6; color: #374151; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; }
+    .btn-redo:hover { background: #e5e7eb; }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <!-- SCREEN 1: INTRO -->
+  <div id="screen-intro" class="screen active">
+    <div class="shield">🛡</div>
+    <h1 class="intro-title">Questionnaire APPÂT</h1>
+    <p class="intro-subtitle">Profil de vulnérabilité au phishing</p>
+    <p class="intro-desc">20 situations du quotidien. Répondez instinctivement — il n'y a pas de bonne ou mauvaise réponse.<br>Vos réponses calibreront le détecteur à votre profil psychologique.</p>
+    <div class="attention"><strong>Attention :</strong> Ce n'est pas un anti-phishing classique. Cet outil détecte les techniques de manipulation psychologique (méthode APPÂT) dans vos emails pour vous aider à les reconnaître et à garder votre esprit critique.</div>
+    <button class="btn-primary" id="btn-start">Commencer le questionnaire</button>
+    <button class="btn-skip" id="btn-skip">Je ne veux pas de profil personnalisé</button>
+    <p class="skip-note">Le détecteur utilisera la sensibilité maximale pour toutes les techniques.</p>
+  </div>
+
+  <!-- SCREEN 2: QUESTIONS -->
+  <div id="screen-question" class="screen">
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    <div class="progress-label" id="progress-label"></div>
+    <div class="flashcard-stage" id="flashcard-stage"></div>
+  </div>
+
+  <!-- SCREEN 3: RESULT -->
+  <div id="screen-result" class="screen">
+    <div class="result-icon">✓</div>
+    <h2 class="result-title">Profil configuré !</h2>
+    <p class="result-desc">Vos réponses ont calibré le détecteur.<br>Il ajustera maintenant ses alertes selon votre sensibilité à chaque technique.</p>
+    <div class="result-grid" id="result-grid"></div>
+    <button class="btn-redo" id="btn-redo">↺ Refaire le questionnaire</button>
+  </div>
+
+</div>
+<script src="questionnaire.js" type="module"></script>
+</body>
+</html>

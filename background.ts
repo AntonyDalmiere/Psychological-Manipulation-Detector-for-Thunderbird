@@ -124,7 +124,6 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
  */
 async function handleMessagesDisplayed(tab: browser.tabs.Tab, messageList: { messages: any[] }) {
   const { messages } = messageList;
-  
   for (let i = 0; i < messages.length; i++) {
     await checkMessageAndShowBanner(tab, messages[i]);
   }
@@ -154,6 +153,10 @@ async function registerContentScript() {
 registerContentScript();
 
 browser.runtime.onInstalled.addListener(({ reason }) => {
-  if (reason === 'install') browser.tabs.create({ url: browser.runtime.getURL('onboarding.html') });
+  if (reason === 'install') setTimeout(() => browser.runtime.openOptionsPage(), 1500);
+});
+
+browser.runtime.onMessage.addListener((message: any) => {
+  if (message.action === 'openQuestionnaire') browser.runtime.openOptionsPage();
 });
 console.log("Extension booted");

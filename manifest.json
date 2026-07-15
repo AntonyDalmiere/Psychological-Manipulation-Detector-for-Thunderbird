@@ -27,6 +27,6 @@
     "storage"
   ],
   "options_ui": {
-    "page": "onboarding.html"
+    "page": "questionnaire.html"
   }
 }
