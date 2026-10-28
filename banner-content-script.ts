@@ -108,8 +108,9 @@ function createChipNew(technique: { name: string; keywords: string[] }): HTMLEle
 
 function createProfileLink(): HTMLElement {
   const footer = document.createElement('div'); footer.className = 'modal-footer';
-  const link = document.createElement('span'); link.className = 'profile-link'; link.textContent = '✱ Modifier mon profil';
-  link.onclick = () => browser.runtime.openOptionsPage();
+  const link = document.createElement('span'); link.className = 'profile-link'; link.textContent = '⚙ Configurer mon profil';
+  link.onclick = () => browser.runtime.sendMessage({ action: 'openQuestionnaire' });
+  browser.storage.local.get('techniqueWeights').then(s => { if ((s as any).techniqueWeights) link.textContent = '⚙ Modifier mon profil'; });
   footer.appendChild(link); return footer;
 }
 

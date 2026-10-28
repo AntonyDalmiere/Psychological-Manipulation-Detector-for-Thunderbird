@@ -11,6 +11,7 @@ const config = {
     background: './background.ts',
     'banner-content-script': './banner-content-script.ts',
     onboarding: './onboarding.ts',
+    questionnaire: './questionnaire.ts',
   },
   output: {
     path: join(__dirname, 'dist'),
@@ -51,6 +52,7 @@ const config = {
         { from: 'banner.css', to: 'banner.css' },
         { from: 'icons', to: 'icons' },
         { from: 'onboarding.html', to: 'onboarding.html' },
+        { from: 'questionnaire.html', to: 'questionnaire.html' },
       ],
     }),
   ],
