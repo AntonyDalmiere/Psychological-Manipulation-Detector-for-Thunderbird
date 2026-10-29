@@ -38,7 +38,7 @@ const config = {
     outputModule: true,
   },
   optimization: {
-    minimize: true,
+    minimize: false,
     splitChunks: false,
   },
   devtool: false,
