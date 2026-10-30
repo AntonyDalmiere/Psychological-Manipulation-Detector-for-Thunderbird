@@ -1,4 +1,7 @@
 # Psychological Manipulation Detector for Thunderbird
+[![Thunderbird](https://img.shields.io/badge/Thunderbird-0A84FF?logo=thunderbird&logoColor=white)](https://addons.thunderbird.net/en-US/thunderbird/addon/psychological-manipulation/)
+[![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](https://github.com/AntonyDalmiere/Psychological-Manipulation-Detector-for-Thunderbird)
+
 
 A Thunderbird extension that detects psychological manipulation techniques in emails using NLP and keyword analysis.
 
