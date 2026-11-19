@@ -10,7 +10,6 @@ const config = {
   entry: {
     background: './background.ts',
     'banner-content-script': './banner-content-script.ts',
-    onboarding: './onboarding.ts',
     questionnaire: './questionnaire.ts',
   },
   output: {
@@ -51,7 +50,7 @@ const config = {
         { from: 'manifest.json', to: 'manifest.json' },
         { from: 'banner.css', to: 'banner.css' },
         { from: 'icons', to: 'icons' },
-        { from: 'onboarding.html', to: 'onboarding.html' },
+        { from: '_locales', to: '_locales' },
         { from: 'questionnaire.html', to: 'questionnaire.html' },
       ],
     }),

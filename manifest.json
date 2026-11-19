@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Psychological manipulation detector",
-  "version": "1.1.0",
-  "description": "Shows psychological manipulation techniques when opening an email",
+  "name": "__MSG_extensionName__",
+  "version": "1.2.0",
+  "description": "__MSG_extensionDescription__",
   "author": "Antony Dalmiere & Simon Pouly",
+  "default_locale": "en",
   "browser_specific_settings": {
     "gecko": {
       "id": "psychologicalmanipulationdetector@laas.fr",
@@ -22,7 +23,6 @@
   },
   "permissions": [
     "messagesRead",
-    "tabs",
     "scripting",
     "storage"
   ],

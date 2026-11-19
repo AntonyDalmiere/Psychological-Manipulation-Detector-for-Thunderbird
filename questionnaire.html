@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title>Questionnaire APPÂT</title>
+  <title></title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; }
@@ -59,13 +59,13 @@
   <!-- SCREEN 1: INTRO -->
   <div id="screen-intro" class="screen active">
     <div class="shield">🛡</div>
-    <h1 class="intro-title">Questionnaire APPÂT</h1>
-    <p class="intro-subtitle">Profil de vulnérabilité au phishing</p>
-    <p class="intro-desc">20 situations du quotidien. Répondez instinctivement — il n'y a pas de bonne ou mauvaise réponse.<br>Vos réponses calibreront le détecteur à votre profil psychologique.</p>
-    <div class="attention"><strong>Attention :</strong> Ce n'est pas un anti-phishing classique. Cet outil détecte les techniques de manipulation psychologique (méthode APPÂT) dans vos emails pour vous aider à les reconnaître et à garder votre esprit critique.</div>
-    <button class="btn-primary" id="btn-start">Commencer le questionnaire</button>
-    <button class="btn-skip" id="btn-skip">Je ne veux pas de profil personnalisé</button>
-    <p class="skip-note">Le détecteur utilisera la sensibilité maximale pour toutes les techniques.</p>
+    <h1 class="intro-title" data-i18n="introTitle"></h1>
+    <p class="intro-subtitle" data-i18n="introSubtitle"></p>
+    <p class="intro-desc"><span data-i18n="introDesc1"></span><br><span data-i18n="introDesc2"></span></p>
+    <div class="attention"><strong data-i18n="introAttentionLabel"></strong> <span data-i18n="introAttention"></span></div>
+    <button class="btn-primary" id="btn-start" data-i18n="btnStart"></button>
+    <button class="btn-skip" id="btn-skip" data-i18n="btnSkip"></button>
+    <p class="skip-note" data-i18n="skipNote"></p>
   </div>
 
   <!-- SCREEN 2: QUESTIONS -->
@@ -78,10 +78,10 @@
   <!-- SCREEN 3: RESULT -->
   <div id="screen-result" class="screen">
     <div class="result-icon">✓</div>
-    <h2 class="result-title">Profil configuré !</h2>
-    <p class="result-desc">Vos réponses ont calibré le détecteur.<br>Il ajustera maintenant ses alertes selon votre sensibilité à chaque technique.</p>
+    <h2 class="result-title" data-i18n="resultTitle"></h2>
+    <p class="result-desc"><span data-i18n="resultDesc1"></span><br><span data-i18n="resultDesc2"></span></p>
     <div class="result-grid" id="result-grid"></div>
-    <button class="btn-redo" id="btn-redo">↺ Refaire le questionnaire</button>
+    <button class="btn-redo" id="btn-redo" data-i18n="btnRedo"></button>
   </div>
 
 </div>

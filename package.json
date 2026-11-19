@@ -1,6 +1,6 @@
 {
   "name": "psychological-manipulation-detector",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Thunderbird extension that detects psychological manipulation techniques in emails",
   "author": "Antony Dalmiere",
   "license": "CC0-1.0",
@@ -10,17 +10,17 @@
     "dev": "webpack --mode development --watch",
     "clean": "rm -rf dist/",
     "check": "node ./node_modules/typescript/bin/tsc --noEmit",
-    "postinstall": "patch-package"
+    "lint": "node ./node_modules/web-ext/bin/web-ext.js lint --source-dir dist",
+    "source": "node ./scripts/make-source-archive.mjs"
   },
   "dependencies": {
-    "nlp-js-tools-french": "^1.0.9"
+    "nlp-js-tools-french": "file:./vendor/nlp-js-tools-french"
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^120.0.0",
     "@types/node": "^18.19.130",
     "copy-webpack-plugin": "^14.0.0",
     "minimizer-webpack-plugin": "^5.6.0",
-    "patch-package": "^8.0.1",
     "ts-loader": "^9.5.7",
     "typescript": "^5.0.0",
     "web-ext": "^10.8.0",

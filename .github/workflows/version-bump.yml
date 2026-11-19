@@ -91,9 +91,12 @@ jobs:
           git push origin "$VERSION"
           npm ci
           npm run build
+          npm run source
 
       - name: Create Release & Upload Artifact
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.bump.outputs.version }}
-          files: dist/psychological-manipulation-detector.xpi
+          files: |
+            dist/psychological-manipulation-detector.xpi
+            psychological-manipulation-detector-*-source.zip

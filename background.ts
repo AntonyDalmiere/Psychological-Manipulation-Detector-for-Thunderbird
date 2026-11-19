@@ -12,6 +12,7 @@
  */
 
 import { TECHNIQUE_KEYWORDS } from './keyword.js';
+import type { TechniqueId } from './technique-id.js';
 import NlpjsTFr from 'nlp-js-tools-french';
 
 /**
@@ -39,8 +40,9 @@ function lemmatizeText(text: string): string[] {
     
     return Array.from(lemmaSet);
   } catch (error) {
-    console.warn('[STEM] Error stemming text:', error);
-    // Fallback to simple tokenization if lemmatizer fails
+    // Log the failure type only; the message text itself is private user data.
+    console.warn('[STEM] Stemming failed:', error instanceof Error ? error.name : typeof error);
+    // Fallback to simple tokenization if the stemmer fails
     return text
       .toLowerCase()
       .split(/\s+/)
@@ -69,18 +71,16 @@ function extractTextFromParts(parts: any[]): string {
 async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
   try {
     const messageDetails: any = await (browser as any).messages.getFull(message.id);
-    console.log(messageDetails);
     const subject = message.subject || '';
     const nestedText = extractTextFromParts(messageDetails.parts);
     const bodyText = (messageDetails.body || '') + nestedText;
     
     const fullText = `${subject}\n${bodyText}`;
-    console.log('[SCAN] Scanning message:', message.id, 'with text:', fullText);
     
-    // Stem the incoming text to get array of stemmed tokens
+    // Stem the incoming text to get array of stemmed tokens.
+    // Message content is never logged: it is private user data.
     const lemmatizedTokens = lemmatizeText(fullText);
-    console.log('[SCAN] Stemmed text:', lemmatizedTokens);
-    const matchedTechniques: { name: string; keywords: string[] }[] = [];
+    const matchedTechniques: { id: TechniqueId; keywords: string[] }[] = [];
 
     // For each technique, check if any of its keywords match lemmatized tokens
     for (const technique of TECHNIQUE_KEYWORDS) {
@@ -95,7 +95,7 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
       
       if (matchedKeywords.length > 0) {
         matchedTechniques.push({
-          name: technique.name,
+          id: technique.id,
           keywords: matchedKeywords
         });
       }
