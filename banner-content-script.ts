@@ -6,34 +6,31 @@
  * the warning banner when keywords are detected.
  */
 
+import type { TechniqueId } from './technique-id.js';
+
+interface MatchedTechnique {
+  id: TechniqueId;
+  keywords: string[];
+}
+
 let bannerElement: HTMLElement | null = null;
 let isBannerVisible: boolean = false;
 
 /**
- * Map technique name to a CSS class for category-specific colors.
+ * Look up a localized string, falling back to the key itself so a missing
+ * translation is visible during development instead of rendering "undefined".
  */
-function getTechniqueClass(name: string): string {
-  const normalized = name.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
-  switch (normalized) {
-    case 'personnalisation':
-      return 'technique-personnalisation';
-    case 'tentation':
-      return 'technique-tentation';
-    case 'autorite':
-      return 'technique-autorite';
-    case 'peur':
-      return 'technique-peur';
-    case 'amorcage':
-      return 'technique-amorcage';
-    default:
-      return 'technique-default';
-  }
+function msg(key: string, substitutions?: string | string[]): string {
+  const message = browser.i18n.getMessage(key, substitutions);
+  return message || key;
 }
 
-const TECHNIQUE_NAME_MAP: Record<string, string> = {
-  'Autorité': 'autorite', 'Peur': 'peur', 'Personnalisation': 'personnalisation',
-  'Amorçage': 'amorcage', 'Tentation': 'tentation',
-};
+/**
+ * Map a technique id to a CSS class for category-specific colors.
+ */
+function getTechniqueClass(id: TechniqueId): string {
+  return `technique-${id}`;
+}
 
 function getProfileMultiplier(weight: number): number {
   if (weight >= 2) return 1.5;
@@ -48,9 +45,9 @@ function getCooccurrenceBonus(count: number): number {
   return 0;
 }
 
-function calcManipScore(techniques: { name: string; keywords: string[] }[], weights: Record<string, number>): number {
+function calcManipScore(techniques: MatchedTechnique[], weights: Record<string, number>): number {
   const sum = techniques.reduce((acc, t) => {
-    const w = getProfileMultiplier(weights[TECHNIQUE_NAME_MAP[t.name] ?? t.name] ?? 1);
+    const w = getProfileMultiplier(weights[t.id] ?? 1);
     return acc + Math.min(2, t.keywords.length) * 5 * w;
   }, 0);
   return Math.min(100, Math.round(sum + getCooccurrenceBonus(techniques.length)));
@@ -66,28 +63,28 @@ function scoreToColor(score: number): string {
   return `hsl(${hue}, 80%, 45%)`;
 }
 
-function calculateScore(techniques: { name: string; keywords: string[] }[], _totalKeywords: number, weights: Record<string, number>): number {
+function calculateScore(techniques: MatchedTechnique[], _totalKeywords: number, weights: Record<string, number>): number {
   const totalKw = techniques.reduce((acc, t) => acc + t.keywords.length, 0);
   return Math.max(calcManipScore(techniques, weights), calcPhishingScore(totalKw));
 }
 
 function getDangerLabel(score: number): string {
-  if (score >= 75) return 'Critique';
-  if (score >= 50) return 'Élevé';
-  if (score >= 25) return 'Modéré';
-  return 'Faible';
+  if (score >= 75) return msg('dangerCritical');
+  if (score >= 50) return msg('dangerHigh');
+  if (score >= 25) return msg('dangerModerate');
+  return msg('dangerLow');
 }
 
 function createModalHeader(onClose: () => void): HTMLElement {
   const h = document.createElement('div'); h.className = 'modal-header';
-  const t = document.createElement('span'); t.className = 'modal-title'; t.textContent = '⚠ ANALYSE DE MANIPULATION';
+  const title = document.createElement('span'); title.className = 'modal-title'; title.textContent = msg('bannerTitle');
   const b = document.createElement('button'); b.className = 'modal-close'; b.textContent = '✕'; b.onclick = onClose;
-  h.append(t, b); return h;
+  h.append(title, b); return h;
 }
 
 function createScoreRow(score: number): HTMLElement {
   const row = document.createElement('div'); row.className = 'score-row';
-  const label = document.createElement('span'); label.className = 'score-label'; label.textContent = 'SCORE DE DANGER';
+  const label = document.createElement('span'); label.className = 'score-label'; label.textContent = msg('scoreLabel');
   const val = document.createElement('span'); val.className = 'score-value';
   val.textContent = `${score}/100 — ${getDangerLabel(score)}`; val.style.color = scoreToColor(score);
   row.append(label, val); return row;
@@ -100,21 +97,22 @@ function createProgressBar(score: number): HTMLElement {
   wrap.appendChild(bar); return wrap;
 }
 
-function createChipNew(technique: { name: string; keywords: string[] }): HTMLElement {
-  const chip = document.createElement('div'); chip.className = `technique-chip ${getTechniqueClass(technique.name)}`;
-  const name = document.createElement('span'); name.className = 'chip-text'; name.textContent = technique.name;
+function createChipNew(technique: MatchedTechnique): HTMLElement {
+  const chip = document.createElement('div'); chip.className = `technique-chip ${getTechniqueClass(technique.id)}`;
+  const name = document.createElement('span'); name.className = 'chip-text';
+  name.textContent = msg(`technique${technique.id.charAt(0).toUpperCase()}${technique.id.slice(1)}`);
   chip.append(name); return chip;
 }
 
 function createProfileLink(): HTMLElement {
   const footer = document.createElement('div'); footer.className = 'modal-footer';
-  const link = document.createElement('span'); link.className = 'profile-link'; link.textContent = '⚙ Configurer mon profil';
+  const link = document.createElement('span'); link.className = 'profile-link'; link.textContent = msg('profileConfigure');
   link.onclick = () => browser.runtime.sendMessage({ action: 'openQuestionnaire' });
-  browser.storage.local.get('techniqueWeights').then(s => { if ((s as any).techniqueWeights) link.textContent = '⚙ Modifier mon profil'; });
+  browser.storage.local.get('techniqueWeights').then(s => { if ((s as any).techniqueWeights) link.textContent = msg('profileEdit'); });
   footer.appendChild(link); return footer;
 }
 
-function createChips(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number> = {}): HTMLElement {
+function createChips(techniques: MatchedTechnique[], totalKeywords: number, weights: Record<string, number> = {}): HTMLElement {
   removeBanner();
   const score = calculateScore(techniques, totalKeywords, weights);
   const modal = document.createElement('div'); modal.id = 'keyword-chips-container'; modal.className = 'manipulation-modal';
@@ -130,7 +128,7 @@ function createChips(techniques: { name: string; keywords: string[] }[], totalKe
 function showSafeNotification() {
   const div = document.createElement('div');
   div.className = 'safe-notification';
-  div.textContent = '✓ Aucune manipulation détectée';
+  div.textContent = msg('safeNotification');
   document.body.appendChild(div);
   setTimeout(() => div.remove(), 3000);
 }
@@ -146,7 +144,7 @@ function removeBanner() {
 /**
  * Show the banner at the top of the message viewer
  */
-function showBanner(techniques: { name: string; keywords: string[] }[], totalKeywords: number, weights: Record<string, number> = {}) {
+function showBanner(techniques: MatchedTechnique[], totalKeywords: number, weights: Record<string, number> = {}) {
   const chips = createChips(techniques, totalKeywords, weights);
   document.body.appendChild(chips);
   isBannerVisible = true;
@@ -155,7 +153,7 @@ function showBanner(techniques: { name: string; keywords: string[] }[], totalKey
 /**
  * Listen for messages from background script
  */
-browser.runtime.onMessage.addListener((message: { action: string; techniques: { name: string; keywords: string[] }[]; totalKeywords: number; weights: Record<string, number> }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
+browser.runtime.onMessage.addListener((message: { action: string; techniques: MatchedTechnique[]; totalKeywords: number; weights: Record<string, number> }, sender: browser.runtime.MessageSender, sendResponse: (response: { success: boolean }) => void) => {
   if (message.action === 'showBanner') {
     showBanner(message.techniques, message.totalKeywords, message.weights);
   } else if (message.action === 'showSafe') {

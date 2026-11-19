@@ -1,0 +1,8 @@
+{
+  "name": "nlp-js-tools-french",
+  "version": "1.0.9",
+  "description": "French Snowball stemmer (trimmed subset of nlp-js-tools-french)",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true
+}

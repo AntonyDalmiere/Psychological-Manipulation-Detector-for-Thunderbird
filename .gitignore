@@ -5,6 +5,7 @@ node_modules/
 dist/
 build/
 *.xpi
+*-source.zip
 *.js.map
 
 # IDE

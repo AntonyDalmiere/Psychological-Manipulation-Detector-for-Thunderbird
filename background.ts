@@ -12,6 +12,7 @@
  */
 
 import { TECHNIQUE_KEYWORDS } from './keyword.js';
+import type { TechniqueId } from './technique-id.js';
 import NlpjsTFr from 'nlp-js-tools-french';
 
 /**
@@ -80,7 +81,7 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
     // Stem the incoming text to get array of stemmed tokens
     const lemmatizedTokens = lemmatizeText(fullText);
     console.log('[SCAN] Stemmed text:', lemmatizedTokens);
-    const matchedTechniques: { name: string; keywords: string[] }[] = [];
+    const matchedTechniques: { id: TechniqueId; keywords: string[] }[] = [];
 
     // For each technique, check if any of its keywords match lemmatized tokens
     for (const technique of TECHNIQUE_KEYWORDS) {
@@ -95,7 +96,7 @@ async function checkMessageAndShowBanner(tab: browser.tabs.Tab, message: any) {
       
       if (matchedKeywords.length > 0) {
         matchedTechniques.push({
-          name: technique.name,
+          id: technique.id,
           keywords: matchedKeywords
         });
       }

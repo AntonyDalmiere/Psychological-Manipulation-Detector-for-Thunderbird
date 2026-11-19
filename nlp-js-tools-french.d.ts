@@ -1,15 +1,14 @@
 declare module 'nlp-js-tools-french' {
-  export interface TokenResult {
+  export interface StemResult {
     id: number;
     word: string;
-    lemma: string;
+    stem: string;
   }
 
   class NlpjsTFr {
     constructor(sentence: string, userConfig?: any);
-    lemmatizer(): TokenResult[];
-    posTagger(): any[];
-    stemmer(): any[];
+    stemmer(): StemResult[];
+    wordStemmer(word: string): { word: string; stem: string };
   }
 
   export default NlpjsTFr;

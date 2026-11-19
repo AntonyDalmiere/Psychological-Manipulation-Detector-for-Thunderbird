@@ -1,0 +1,428 @@
+{
+  "extensionName": {
+    "message": "Psychological manipulation detector"
+  },
+  "extensionDescription": {
+    "message": "Shows psychological manipulation techniques when opening an email"
+  },
+  "questionnaireTitle": {
+    "message": "APPÂT questionnaire"
+  },
+  "introTitle": {
+    "message": "APPÂT questionnaire"
+  },
+  "introSubtitle": {
+    "message": "Phishing vulnerability profile"
+  },
+  "introDesc1": {
+    "message": "20 everyday situations. Answer instinctively — there are no right or wrong answers."
+  },
+  "introDesc2": {
+    "message": "Your answers will calibrate the detector to your psychological profile."
+  },
+  "introAttentionLabel": {
+    "message": "Note:"
+  },
+  "introAttention": {
+    "message": "This is not a conventional anti-phishing tool. It detects psychological manipulation techniques (the APPÂT method) in your emails to help you recognise them and keep your critical thinking."
+  },
+  "btnStart": {
+    "message": "Start the questionnaire"
+  },
+  "btnSkip": {
+    "message": "I don't want a personalized profile"
+  },
+  "skipNote": {
+    "message": "The detector will use maximum sensitivity for every technique."
+  },
+  "resultTitle": {
+    "message": "Profile configured!"
+  },
+  "resultDesc1": {
+    "message": "Your answers have calibrated the detector."
+  },
+  "resultDesc2": {
+    "message": "It will now adjust its alerts to your sensitivity to each technique."
+  },
+  "btnRedo": {
+    "message": "↺ Retake the questionnaire"
+  },
+  "bannerTitle": {
+    "message": "⚠ MANIPULATION ANALYSIS"
+  },
+  "scoreLabel": {
+    "message": "DANGER SCORE"
+  },
+  "profileConfigure": {
+    "message": "⚙ Configure my profile"
+  },
+  "profileEdit": {
+    "message": "⚙ Edit my profile"
+  },
+  "safeNotification": {
+    "message": "✓ No manipulation detected"
+  },
+  "techniqueAutorite": {
+    "message": "Authority"
+  },
+  "techniquePeur": {
+    "message": "Fear"
+  },
+  "techniquePersonnalisation": {
+    "message": "Personalization"
+  },
+  "techniqueAmorcage": {
+    "message": "Priming"
+  },
+  "techniqueTentation": {
+    "message": "Temptation"
+  },
+  "dimAutorite": {
+    "message": "Authority"
+  },
+  "dimPeur": {
+    "message": "Fear"
+  },
+  "dimPersonnalisation": {
+    "message": "Personalization"
+  },
+  "dimAmorcage": {
+    "message": "Priming"
+  },
+  "dimTentation": {
+    "message": "Temptation"
+  },
+  "vulnHigh": {
+    "message": "Highly vulnerable"
+  },
+  "vulnModerate": {
+    "message": "Moderately vulnerable"
+  },
+  "vulnLow": {
+    "message": "Low vulnerability"
+  },
+  "dangerCritical": {
+    "message": "Critical"
+  },
+  "dangerHigh": {
+    "message": "High"
+  },
+  "dangerModerate": {
+    "message": "Moderate"
+  },
+  "dangerLow": {
+    "message": "Low"
+  },
+  "progressLabel": {
+    "message": "Question $CURRENT$ / $TOTAL$",
+    "description": "Progress indicator, e.g. Question 3 / 20",
+    "placeholders": {
+      "current": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "q1Text": {
+    "message": "You walk past a shop window that has been redecorated with warm lighting. You feel a sudden urge to go in that you didn't have yesterday."
+  },
+  "q1AnswerA": {
+    "message": "I go in — the atmosphere gave me an impulse I hadn't anticipated."
+  },
+  "q1AnswerB": {
+    "message": "I notice the change, but it isn't enough to make me go in."
+  },
+  "q1AnswerC": {
+    "message": "I wonder why the display was changed before I act."
+  },
+  "q1AnswerD": {
+    "message": "The lighting doesn't influence me; I keep walking."
+  },
+  "q2Text": {
+    "message": "A colleague uses their usual tone but asks you to access a confidential file to \"do them a quick favour\"."
+  },
+  "q2AnswerA": {
+    "message": "The familiar tone puts me at ease; I help without asking questions."
+  },
+  "q2AnswerB": {
+    "message": "The tone seems familiar, but I ask why they need this now."
+  },
+  "q2AnswerC": {
+    "message": "I find the request unusual despite the familiar tone, and I question it."
+  },
+  "q2AnswerD": {
+    "message": "I never rely on tone to judge whether a request is legitimate."
+  },
+  "q3Text": {
+    "message": "A presenter shows an evocative photo and tells the story of a fictional employee who \"fell for it\", in an unusually dramatic tone."
+  },
+  "q3AnswerA": {
+    "message": "The story moves me deeply, and I carefully memorise every piece of advice given afterwards."
+  },
+  "q3AnswerB": {
+    "message": "The story makes me think, but I stay critical of the advice offered."
+  },
+  "q3AnswerC": {
+    "message": "Such a dramatic staging for an internal training session seems excessive to me."
+  },
+  "q3AnswerD": {
+    "message": "I'm not receptive to this kind of story; I only retain the facts."
+  },
+  "q4Text": {
+    "message": "You're reading a gripping article online. A perfectly integrated pop-up offers to \"continue reading in premium mode\" with one click."
+  },
+  "q4AnswerA": {
+    "message": "Caught up in the article, I click almost reflexively so as not to lose the thread."
+  },
+  "q4AnswerB": {
+    "message": "I finish what I'm reading before considering clicking anything."
+  },
+  "q4AnswerC": {
+    "message": "A pop-up that blends in that well alerts me rather than attracting me."
+  },
+  "q4AnswerD": {
+    "message": "I always close this kind of pop-up without reading it."
+  },
+  "q5Text": {
+    "message": "Your access badge stops working. A colleague jokes: \"Looks like a big round of contract cuts…\""
+  },
+  "q5AnswerA": {
+    "message": "That one remark puts me on edge for the rest of the day."
+  },
+  "q5AnswerB": {
+    "message": "I'm a bit shaken, but I go straight to reception to ask what's going on."
+  },
+  "q5AnswerC": {
+    "message": "I take the remark for what it is — a joke — and don't think about it again."
+  },
+  "q5AnswerD": {
+    "message": "That kind of rumour never affects me; I carry on with my day as normal."
+  },
+  "q6Text": {
+    "message": "Your manager messages you: \"We need to talk about your last report. Come see me as soon as you can.\" Nothing else."
+  },
+  "q6AnswerA": {
+    "message": "I immediately feel awful and imagine the worst until we talk."
+  },
+  "q6AnswerB": {
+    "message": "I'm worried, but I finish my current task before going."
+  },
+  "q6AnswerC": {
+    "message": "The message is brief, but that means nothing in itself; I'll go at a quiet moment."
+  },
+  "q6AnswerD": {
+    "message": "I don't worry about such a vague message; I'll go when I have time."
+  },
+  "q7Text": {
+    "message": "During a quality review, your supervisor leafs through your file in silence, face closed, then says \"We'll look at this later.\""
+  },
+  "q7AnswerA": {
+    "message": "The silence and their expression make me anxious; I replay my whole file in my head."
+  },
+  "q7AnswerB": {
+    "message": "I'm a little worried, but I wait for concrete feedback before reacting."
+  },
+  "q7AnswerC": {
+    "message": "I draw no conclusions from a facial expression or a silence."
+  },
+  "q7AnswerD": {
+    "message": "That kind of reaction doesn't worry me; I know the quality of my work."
+  },
+  "q8Text": {
+    "message": "An email tells you your report \"contains inconsistencies requiring verification via the attached portal\", without saying which."
+  },
+  "q8AnswerA": {
+    "message": "I panic at the thought of having got it wrong and click straight away to check."
+  },
+  "q8AnswerB": {
+    "message": "I'm worried, but I contact the relevant department directly to find out more."
+  },
+  "q8AnswerC": {
+    "message": "I re-read my original file before reacting to the email."
+  },
+  "q8AnswerD": {
+    "message": "Without a specific detail about the error, I don't feel concerned."
+  },
+  "q9Text": {
+    "message": "At a leaving party, the collection envelope goes round and everyone puts in the same amount without any prior discussion."
+  },
+  "q9AnswerA": {
+    "message": "I give the same amount as everyone else without asking — it must be the norm."
+  },
+  "q9AnswerB": {
+    "message": "I give an amount, but I quietly ask whether that's the usual one."
+  },
+  "q9AnswerC": {
+    "message": "I give what I want, regardless of what others put in."
+  },
+  "q9AnswerD": {
+    "message": "Group behaviour never influences me on this kind of personal decision."
+  },
+  "q10Text": {
+    "message": "A new security procedure is announced in a meeting. The explanation is confusing, but your colleagues nod and take notes without asking anything."
+  },
+  "q10AnswerA": {
+    "message": "I do the same — if they look like they understand, it must be clear."
+  },
+  "q10AnswerB": {
+    "message": "I take notes too, but I plan to ask for clarification after the meeting."
+  },
+  "q10AnswerC": {
+    "message": "I ask my question in the meeting, regardless of whether others seem to understand."
+  },
+  "q10AnswerD": {
+    "message": "Other people's behaviour doesn't change my own need for clarity."
+  },
+  "q11Text": {
+    "message": "You're explaining a method to a new colleague who stares at you coldly and frowns slightly without saying anything."
+  },
+  "q11AnswerA": {
+    "message": "Their reaction throws me off and I immediately adjust how I explain."
+  },
+  "q11AnswerB": {
+    "message": "I notice their reaction, but I finish my explanation as planned."
+  },
+  "q11AnswerC": {
+    "message": "Their expression tells me nothing specific; I carry on without worrying."
+  },
+  "q11AnswerD": {
+    "message": "I ask them directly what's wrong rather than guessing."
+  },
+  "q12Text": {
+    "message": "A company-wide email from management asks for quick action, noting that \"all the colleagues concerned have already confirmed\"."
+  },
+  "q12AnswerA": {
+    "message": "The idea that everyone has already replied pushes me to do the same without waiting."
+  },
+  "q12AnswerB": {
+    "message": "I reply, but first I check with a colleague whether that's actually true."
+  },
+  "q12AnswerC": {
+    "message": "That claim doesn't change how I handle the request."
+  },
+  "q12AnswerD": {
+    "message": "That kind of detail actually makes me more suspicious of the request."
+  },
+  "q13Text": {
+    "message": "Your doctor prescribes a treatment without explanation and cuts your questions short: \"Trust me, this is what I do.\""
+  },
+  "q13AnswerA": {
+    "message": "I respect their position and follow the treatment without pressing my questions."
+  },
+  "q13AnswerB": {
+    "message": "I follow the treatment, but I look up information myself afterwards."
+  },
+  "q13AnswerC": {
+    "message": "I politely insist on at least a minimal explanation."
+  },
+  "q13AnswerD": {
+    "message": "I get a second medical opinion before starting an unexplained treatment."
+  },
+  "q14Text": {
+    "message": "A junior colleague criticises a procedure. Your supervisor replies: \"With experience you understand — for now, just follow them.\""
+  },
+  "q14AnswerA": {
+    "message": "That answer seems fair to me; better to comply until I understand."
+  },
+  "q14AnswerB": {
+    "message": "I comply while saving my questions for later."
+  },
+  "q14AnswerC": {
+    "message": "I think the criticism deserved a real answer, not just an appeal to seniority."
+  },
+  "q14AnswerD": {
+    "message": "I'd rather back the colleague who raised the question."
+  },
+  "q15Text": {
+    "message": "A trainer states: \"There are two kinds of people: those who follow the rules, and those who end up causing an incident.\""
+  },
+  "q15AnswerA": {
+    "message": "I clearly want to be in the first category, so I follow the rules without questioning them."
+  },
+  "q15AnswerB": {
+    "message": "The message motivates me to be careful, but I stay critical of the rules themselves."
+  },
+  "q15AnswerC": {
+    "message": "Splitting people into two categories like that seems far too simplistic to me."
+  },
+  "q15AnswerD": {
+    "message": "That kind of guilt-tripping talk doesn't influence my decisions."
+  },
+  "q16Text": {
+    "message": "An email from management: \"It's better to follow decisions made at the top without trying to understand everything — click here to confirm your agreement.\""
+  },
+  "q16AnswerA": {
+    "message": "That view seems realistic to me; I click to confirm without looking for more detail."
+  },
+  "q16AnswerB": {
+    "message": "I click, but afterwards I ask for an explanation of this new policy."
+  },
+  "q16AnswerC": {
+    "message": "I find that argument insufficient to justify acting without understanding."
+  },
+  "q16AnswerD": {
+    "message": "I verify the email's authenticity before clicking anything."
+  },
+  "q17Text": {
+    "message": "At a market, a seller offers: \"If you buy 3 items instead of 1, I'll give you a price that's really worth it — today only.\""
+  },
+  "q17AnswerA": {
+    "message": "The prospect of saving money motivates me to buy more than planned."
+  },
+  "q17AnswerB": {
+    "message": "I'm interested, but I work out whether I actually need the extra items."
+  },
+  "q17AnswerC": {
+    "message": "A same-day-only offer doesn't particularly influence me."
+  },
+  "q17AnswerD": {
+    "message": "I only buy what I came for, regardless of the price."
+  },
+  "q18Text": {
+    "message": "A friend offers an investment that pays back within 3 months, versus a conventional placement over several years for an equivalent gain."
+  },
+  "q18AnswerA": {
+    "message": "The faster return seems clearly preferable to me; I'm tempted to accept quickly."
+  },
+  "q18AnswerB": {
+    "message": "I'm tempted, but I ask for time to think before committing."
+  },
+  "q18AnswerC": {
+    "message": "The speed of the return doesn't convince me without more guarantees."
+  },
+  "q18AnswerD": {
+    "message": "I always prefer the safety of a conventional placement, even a slower one."
+  },
+  "q19Text": {
+    "message": "At an event, someone offers to get you into a VIP area without a badge by following them through a side entrance they know."
+  },
+  "q19AnswerA": {
+    "message": "The opportunity is too tempting; I follow them without thinking much."
+  },
+  "q19AnswerB": {
+    "message": "I'm tempted, but I hold back thinking about the possible consequences."
+  },
+  "q19AnswerC": {
+    "message": "That kind of workaround doesn't interest me, even when the opportunity arises."
+  },
+  "q19AnswerD": {
+    "message": "I refuse and report the situation on principle."
+  },
+  "q20Text": {
+    "message": "An email offers loyalty points in exchange for sharing your details on a partner site, with a counter showing an offer that expires in 10 minutes."
+  },
+  "q20AnswerA": {
+    "message": "The quick reward and the countdown push me to act without thinking further."
+  },
+  "q20AnswerB": {
+    "message": "I'm drawn to the reward, but I take the time to check the partner site."
+  },
+  "q20AnswerC": {
+    "message": "Such a short countdown strikes me as a pressure tactic."
+  },
+  "q20AnswerD": {
+    "message": "I'm not motivated by that kind of minor reward."
+  }
+}

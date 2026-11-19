@@ -15,31 +15,31 @@ A Thunderbird extension that detects psychological manipulation techniques in em
 ## System Requirements
 Thunderbird >128.0
 
+The interface is available in English and French. Thunderbird picks the locale
+that best matches its own UI language and falls back to English.
+
+---
 
 ## Build Environment
 
-### Required Software
+The review team rebuilds the add-on from this archive, so the instructions below
+are written against a plain, freshly installed environment.
 
-**Node.js 18.x LTS** (18.19.0+)
+- **OS:** Ubuntu 24.04 (any Linux distribution works)
+- **Node.js:** 20.19.5 ([nodejs.org](https://nodejs.org/en/download))
+- **npm:** 10.5.0 (bundled with Node.js 20)
+
 ```bash
-# Install from https://nodejs.org/ (LTS version 18.x)
-# Or use nvm:
-nvm install 18
-nvm use 18
-
-# Verify installation
-node --version  # Should output v18.x.x
-npm --version   # Should output 9.x or higher
+# Verify your toolchain
+node --version   # v20.19.5
+npm --version    # 10.5.0
 ```
-
-**npm 9.x+** (comes bundled with Node.js 18.x)
-
 
 ### Build Instructions
 
-1. **Install dependencies**:
+1. **Install dependencies** (uses the committed `package-lock.json`):
    ```bash
-   npm install
+   npm ci
    ```
 
 2. **Validate TypeScript** (optional):
@@ -55,6 +55,11 @@ npm --version   # Should output 9.x or higher
 4. **Locate the .xpi file**:
    - Output: `dist/psychological-manipulation-detector.xpi`
 
+5. **Lint the packaged add-on** (optional):
+   ```bash
+   npm run lint
+   ```
+
 ### Build Script Details
 
 The `npm run build` command executes:
@@ -65,7 +70,56 @@ webpack --mode production && node ./node_modules/web-ext/bin/web-ext.js build -o
 This performs:
 - TypeScript compilation via webpack (production mode)
 - Extension packaging into .xpi format using web-ext
-- Patching: this project uses `patch-package` to apply custom modifications to third-party dependencies. A patch file (`patches/nlp-js-tools-french+1.0.9.patch`) strip out big JS tables from `nlp-js-tools-french` to comply with <4MB limit of thunderbird addon store. The patch is automatically applied during `npm install` via the `postinstall` script.
+
+No post-install step modifies `node_modules`, so a clean `npm ci` followed by
+`npm run build` reproduces the shipped XPI byte for byte.
+
+---
+
+## Third-Party Code
+
+The add-on needs a French Snowball stemmer. The upstream package
+[`nlp-js-tools-french`](https://github.com/bastienbot/nlp-js-tools-french) ships
+a POS tagger, a lemmatizer and nine dictionaries that this add-on never calls,
+which pushed the package well past the 4 MB add-on size limit.
+
+A trimmed copy is therefore vendored in `vendor/nlp-js-tools-french/` and
+declared as a local package:
+
+```json
+"dependencies": {
+  "nlp-js-tools-french": "file:./vendor/nlp-js-tools-french"
+}
+```
+
+Only `stemmer()` and `wordStemmer()` are retained. The vendored files are
+byte-identical to upstream 1.0.9 except for `index.js` and `package.json`; see
+`vendor/nlp-js-tools-french/NOTICE.md` for the exact list of changes. The
+vendored copy has no dependencies of its own.
+
+---
+
+## Localization
+
+All user-facing strings live in `_locales/<locale>/messages.json` and are read
+through the `browser.i18n` API. English is the default locale.
+
+- `_locales/en/messages.json` — English
+- `_locales/fr/messages.json` — French
+
+To add a language, copy `_locales/en/messages.json` to `_locales/<code>/` and
+translate the `message` values. Keys must not be renamed: they are referenced
+from `questionnaire.html` (`data-i18n` attributes), `questionnaire-data.ts`
+(`textKey` / `answerKeys`) and the scripts.
+
+---
+
+## Source Code Archive
+
+`npm run source` produces `psychological-manipulation-detector-<version>-source.zip`,
+the archive to upload alongside the XPI. It contains the authored sources, the
+lockfile, the vendored dependency and the build configuration, and excludes
+`node_modules`, `dist`, `.git`, `.github` and `.vscode`.
 
 ---
 
@@ -73,7 +127,11 @@ This performs:
 
 CC0-1.0 (Public Domain Dedication)
 
+The vendored stemmer is MIT licensed (see `vendor/nlp-js-tools-french/LICENSE`)
+and its Snowball implementation carries a BSD-style notice reproduced in
+`vendor/nlp-js-tools-french/algos/stem.js`.
+
 ---
 
 **Developer:** Antony Dalmiere, LAAS-CNRS  
-**Version:** 1.1.0
+**Version:** 1.2.0

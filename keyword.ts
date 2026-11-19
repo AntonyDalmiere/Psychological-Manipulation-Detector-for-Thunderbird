@@ -1,7 +1,8 @@
 import NlpjsTFr from 'nlp-js-tools-french';
+import type { TechniqueId } from './technique-id.js';
 
 export interface TechniqueKeywords {
-  name: string;
+  id: TechniqueId;
   keywords: { original: string; stemmed: string }[];
 }
 
@@ -38,23 +39,23 @@ function stemKeywords(keywords: string[]): { original: string; stemmed: string }
 
 export const TECHNIQUE_KEYWORDS: TechniqueKeywords[] = [
   {
-    name: "Autorité",
+    id: "autorite",
     keywords: stemKeywords(["capital", "cordialement", "remercier", "confiance", "fonctionnement", "mettre", "cher", "analyse", "société", "client", "centre", "sg", "diviser", "nominal", "inchangé", "anonyme", "assistance", "efficace", "fédération", "hsc", "euro", "prier", "coordonnée", "garantir", "possible", "compte", "social", "essentiel", "action", "jour"])
   },
   {
-    name: "Peur",
+    id: "peur",
     keywords: stemKeywords(["confidentialité", "droit", "envoyer", "avis", "personnel", "politique", "traitement", "lire", "mail", "garantie", "loi", "avantage", "argent", "public", "traiter", "condition", "responsable", "utilisation", "accepter", "référence", "prendre", "com", "transaction", "comprendre", "année", "publicité", "donnée", "web", "total", "entrer", "fidélité", "simplement", "gagner", "gratuit", "image", "réclamer", "félicitation", "programme", "retirer", "récompense", "expirer", "sondage", "expired", "has", "offrir", "fantastique", "sélectionner", "participer", "tour", "gratuitement", "casino", "cadre", "membership", "bonus", "prolonger", "obtenir", "machine", "exclusif", "choisir", "abonnement"])
   },
   {
-    name: "Personnalisation",
+    id: "personnalisation",
     keywords: stemKeywords(["colis", "livraison", "suivre", "livrer", "reconfirmer", "confirmation", "présent", "signer", "part", "envoi", "adresse", "vérifier", "besoin", "illisible", "caractère", "attente", "recevoir", "e_mail", "prévoir", "ouvrable", "entrepôt", "gls", "écrire", "spécial", "poste", "commander", "inconnu", "planifier", "expéditeur", "fedex"])
   },
   {
-    name: "Amorçage",
+    id: "amorcage",
     keywords: stemKeywords(["facturation", "expiration", "update", "produire", "échouer", "cycle", "évidemment", "lister", "revoir", "valider", "récent", "paiement", "abonnement", "hold", "renouveler", "mensuel", "payment", "suspendre", "date", "mercredi", "essayer", "annuler", "réessayer", "netflix", "issu", "filière", "associatif", "archivée", "claudelands", "syndical"])
   },
   {
-    name: "Tentation",
+    id: "tentation",
     keywords: stemKeywords(["femme", "soir", "photo", "voir", "désinscrire", "profil", "rencontrer", "aimer", "répondre", "amour", "discuter", "coeur", "aventure", "chatter", "sexy", "am", "chattez", "bombe", "flirter", "sortir", "désabonner", "rencontre", "évaluer", "ensemble", "invitation", "célibataire", "sexfinder", "meetup", "local", "flirtback"])
   }
 ];
