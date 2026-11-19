@@ -92,10 +92,11 @@ declared as a local package:
 }
 ```
 
-Only `stemmer()` and `wordStemmer()` are retained. The vendored files are
-byte-identical to upstream 1.0.9 except for `index.js` and `package.json`; see
-`vendor/nlp-js-tools-french/NOTICE.md` for the exact list of changes. The
-vendored copy has no dependencies of its own.
+Only `stemmer()` and `wordStemmer()` are retained. The vendored copy has no
+dependencies of its own. See `vendor/nlp-js-tools-french/NOTICE.md` for the
+exact list of changes, which covers the trimmed entry point and a repair to the
+stemmer's accented characters (upstream 1.0.9 ships them double-encoded, which
+prevented accented suffixes from ever matching).
 
 ---
 

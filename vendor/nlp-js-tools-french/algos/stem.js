@@ -57,18 +57,18 @@ function stem(word) {
     word = word.toLowerCase();
     var oriWord = word;
     word = word.replace(/qu/g, 'qU');   //have to perform first, as after the operation, capital U is not treated as a vowel
-    word = word.replace(/([aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹])u([aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹])/g, '$1U$2');
-    word = word.replace(/([aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹])i([aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹])/g, '$1I$2');
-    word = word.replace(/([aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹])y/g, '$1Y');
-    word = word.replace(/y([aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹])/g, 'Y$1');
+    word = word.replace(/([aeiouyâàëéêèïîôûù])u([aeiouyâàëéêèïîôûù])/g, '$1U$2');
+    word = word.replace(/([aeiouyâàëéêèïîôûù])i([aeiouyâàëéêèïîôûù])/g, '$1I$2');
+    word = word.replace(/([aeiouyâàëéêèïîôûù])y/g, '$1Y');
+    word = word.replace(/y([aeiouyâàëéêèïîôûù])/g, 'Y$1');
 
     var rv='';
     var rvIndex = -1;
-    if(word.search(/^(par|col|tap)/) != -1 || word.search(/^[aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹]{2}/) != -1){
+    if(word.search(/^(par|col|tap)/) != -1 || word.search(/^[aeiouyâàëéêèïîôûù]{2}/) != -1){
         rv = word.substring(3);
         rvIndex = 3;
     } else {
-        rvIndex = word.substring(1).search(/[aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹]/);
+        rvIndex = word.substring(1).search(/[aeiouyâàëéêèïîôûù]/);
         if(rvIndex != -1){
             rvIndex +=2;   //+2 is to supplement the substring(1) used to find rvIndex
             rv = word.substring(rvIndex);
@@ -79,7 +79,7 @@ function stem(word) {
 
 //    R1 is the region after the first non-vowel following a vowel, or the end of the word if there is no such non-vowel.
 //    R2 is the region after the first non-vowel following a vowel in R1, or the end of the word if there is no such non-vowel
-    var r1Index = word.search(/[aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹][^aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹]/);
+    var r1Index = word.search(/[aeiouyâàëéêèïîôûù][^aeiouyâàëéêèïîôûù]/);
     var r1 = '';
     if (r1Index != -1) {
         r1Index += 2;
@@ -91,7 +91,7 @@ function stem(word) {
     var r2Index = -1;
     var r2 = '';
     if (r1Index != -1) {
-        r2Index = r1.search(/[aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹][^aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹]/);
+        r2Index = r1.search(/[aeiouyâàëéêèïîôûù][^aeiouyâàëéêèïîôûù]/);
         if (r2Index != -1) {
             r2Index += 2;
             r2 = r1.substring(r2Index);
@@ -115,15 +115,15 @@ function stem(word) {
     var a4Index = word.search(/(usion|ution|usions|utions)$/);
     var a5Index = word.search(/(ence|ences)$/);
     var a6Index = word.search(/(ement|ements)$/);
-    var a7Index = word.search(/(itÃ©|itÃ©s)$/);
+    var a7Index = word.search(/(ité|ités)$/);
     var a8Index = word.search(/(if|ive|ifs|ives)$/);
     var a9Index = word.search(/(eaux)$/);
     var a10Index = word.search(/(aux)$/);
     var a11Index = word.search(/(euse|euses)$/);
-    var a12Index = word.search(/[^aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹](issement|issements)$/);
+    var a12Index = word.search(/[^aeiouyâàëéêèïîôûù](issement|issements)$/);
     var a13Index = word.search(/(amment)$/);
     var a14Index = word.search(/(emment)$/);
-    var a15Index = word.search(/[aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹](ment|ments)$/);
+    var a15Index = word.search(/[aeiouyâàëéêèïîôûù](ment|ments)$/);
 
     if(a1Index != -1 && a1Index >= r2Index){
         word = word.substring(0,a1Index);
@@ -157,8 +157,8 @@ function stem(word) {
             }
         } else if(word.search(/(abl|iqU)$/) >= r2Index){
             word = word.replace(/(abl|iqU)$/,'');   //if preceded by abl or iqU, delete if in R2,
-        } else if(word.search(/(iÃ¨r|IÃ¨r)$/) >= rvIndex){
-            word = word.replace(/(iÃ¨r|IÃ¨r)$/,'i');   //if preceded by abl or iqU, delete if in R2,
+        } else if(word.search(/(ièr|Ièr)$/) >= rvIndex){
+            word = word.replace(/(ièr|Ièr)$/,'i');   //if preceded by abl or iqU, delete if in R2,
         }
     } else if(a7Index != -1 && a7Index >= r2Index){
         word = word.substring(0,a7Index);   //delete if in R2
@@ -211,7 +211,7 @@ function stem(word) {
     var step2aDone = false;
     if(oriWord == word.toLowerCase() || oriWord.search(/(amment|emment|ment|ments)$/) != -1){
         step2aDone = true;
-        var b1Regex = /([^aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹])(Ã®mes|Ã®t|Ã®tes|i|ie|ies|ir|ira|irai|iraIent|irais|irait|iras|irent|irez|iriez|irions|irons|iront|is|issaIent|issais|issait|issant|issante|issantes|issants|isse|issent|isses|issez|issiez|issions|issons|it)$/i;
+        var b1Regex = /([^aeiouyâàëéêèïîôûù])(îmes|ît|îtes|i|ie|ies|ir|ira|irai|iraIent|irais|irait|iras|irent|irez|iriez|irions|irons|iront|is|issaIent|issais|issait|issant|issante|issantes|issants|isse|issent|isses|issez|issiez|issions|issons|it)$/i;
         if(word.search(b1Regex) >= rvIndex){
             word = word.replace(b1Regex,'$1');
         }
@@ -222,15 +222,15 @@ function stem(word) {
         if (word.search(/(ions)$/) >= r2Index) {
             word = word.replace(/(ions)$/, '');
         } else {
-            var b2Regex = /(Ã©|Ã©e|Ã©es|Ã©s|Ã¨rent|er|era|erai|eraIent|erais|erait|eras|erez|eriez|erions|erons|eront|ez|iez)$/i;
+            var b2Regex = /(é|ée|ées|és|èrent|er|era|erai|eraIent|erais|erait|eras|erez|eriez|erions|erons|eront|ez|iez)$/i;
             if (word.search(b2Regex) >= rvIndex) {
                 word = word.replace(b2Regex, '');
             } else {
-                var b3Regex = /e(Ã¢mes|Ã¢t|Ã¢tes|a|ai|aIent|ais|ait|ant|ante|antes|ants|as|asse|assent|asses|assiez|assions)$/i;
+                var b3Regex = /e(âmes|ât|âtes|a|ai|aIent|ais|ait|ant|ante|antes|ants|as|asse|assent|asses|assiez|assions)$/i;
                 if (word.search(b3Regex) >= rvIndex) {
                     word = word.replace(b3Regex, '');
                 } else {
-                    var b3Regex2 = /(Ã¢mes|Ã¢t|Ã¢tes|a|ai|aIent|ais|ait|ant|ante|antes|ants|as|asse|assent|asses|assiez|assions)$/i;
+                    var b3Regex2 = /(âmes|ât|âtes|a|ai|aIent|ais|ait|ant|ante|antes|ants|as|asse|assent|asses|assiez|assions)$/i;
                     if (word.search(b3Regex2) >= rvIndex) {
                         word = word.replace(b3Regex2, '');
                     }
@@ -244,27 +244,27 @@ function stem(word) {
         var rep = '';
         if(word.search(/Y$/) != -1) {
             word = word.replace(/Y$/, 'i');
-        } else if(word.search(/Ã§$/) != -1){
-            word = word.replace(/Ã§$/, 'c');
+        } else if(word.search(/ç$/) != -1){
+            word = word.replace(/ç$/, 'c');
         }
     } else {
         /* Step 4 */
-        //If the word ends s, not preceded by a, i, o, u, Ã¨ or s, delete it.
-        if (word.search(/([^aiouÃ¨s])s$/) >= rvIndex) {
-            word = word.replace(/([^aiouÃ¨s])s$/, '$1');
+        //If the word ends s, not preceded by a, i, o, u, è or s, delete it.
+        if (word.search(/([^aiouès])s$/) >= rvIndex) {
+            word = word.replace(/([^aiouès])s$/, '$1');
         }
         var e1Index = word.search(/ion$/);
         if (e1Index >= r2Index && word.search(/[st]ion$/) >= rvIndex) {
             word = word.substring(0, e1Index);
         } else {
-            var e2Index = word.search(/(ier|iÃ¨re|Ier|IÃ¨re)$/);
+            var e2Index = word.search(/(ier|ière|Ier|Ière)$/);
             if (e2Index != -1 && e2Index >= rvIndex) {
                 word = word.substring(0, e2Index) + "i";
             } else {
                 if (word.search(/e$/) >= rvIndex) {
                     word = word.replace(/e$/, '');   //delete last e
-                } else if (word.search(/guÃ«$/) >= rvIndex) {
-                    word = word.replace(/guÃ«$/, 'gu');
+                } else if (word.search(/guë$/) >= rvIndex) {
+                    word = word.replace(/guë$/, 'gu');
                 }
             }
         }
@@ -277,7 +277,7 @@ function stem(word) {
     word = word.replace(/(el|eil)(l)$/,'$1');
 
     /* Step 6: Un-accent */
-    word = word.replace(/[Ã©Ã¨]([^aeiouyÃ¢Ã Ã«Ã©ÃªÃ¨Ã¯Ã®Ã´Ã»Ã¹]+)$/,'e$1');
+    word = word.replace(/[éè]([^aeiouyâàëéêèïîôûù]+)$/,'e$1');
     word = word.toLowerCase();
     return word;
 };
