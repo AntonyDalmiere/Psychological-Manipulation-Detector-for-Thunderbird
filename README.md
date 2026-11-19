@@ -135,4 +135,4 @@ and its Snowball implementation carries a BSD-style notice reproduced in
 ---
 
 **Developer:** Antony Dalmiere, LAAS-CNRS  
-**Version:** 1.2.0
+**Version:** 1.2.1
